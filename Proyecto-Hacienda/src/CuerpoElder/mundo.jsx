@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 
 // Componente Inf
+// Componente Inf
 function Inf({ texto }) {
   return (
     <div
       style={{
-        margin: "20px",
-        whiteSpace: "pre-wrap",
+        backgroundColor: "#fff",
+        borderRadius: "8px",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+        padding: "20px",
+        width: "75%",
         fontFamily: "monospace",
+        overflowX: "auto",
+        maxHeight: "400px",
+        whiteSpace: "pre-wrap",
+        margin: "10px",
       }}
     >
-      <p>{texto}</p>
+      <h2 style={{ fontSize: "18px", color: "#007bff" }}>
+        Resultados de Búsqueda:
+      </h2>
+      <p style={{ color: "black" }}>{texto}</p> {/* El texto en negro aquí */}
     </div>
   );
 }
@@ -28,43 +39,43 @@ function SearchBar({ onSearch }) {
   };
 
   const handleKeyPress = (event) => {
-    // Verifica si la tecla presionada es Enter (código ASCII 13)
     if (event.keyCode === 13 || event.which === 13) {
       handleSearch(); // Llama a la función de búsqueda si es Enter
     }
   };
 
   return (
-    <div style={{ margin: "20px" }}>
-      
+    <div style={{ marginBottom: "20px", textAlign: "center" }}>
       <input
         type="text"
         placeholder="Buscar..."
         value={searchText}
         onChange={handleInputChange}
-        onKeyDown={handleKeyPress} // Se agrega el evento onKeyDown
+        onKeyDown={handleKeyPress}
         style={{
-          padding: "10px",
+          padding: "12px",
           width: "300px",
           border: "1px solid #ccc",
           borderRadius: "5px",
+          fontSize: "16px",
+          marginRight: "10px",
+          overflow: "hidden", // Eliminar barras de desplazamiento
         }}
       />
       <button
         onClick={handleSearch}
         style={{
-          marginLeft: "10px",
-          padding: "10px",
+          padding: "12px 20px",
           backgroundColor: "#007bff",
           color: "#fff",
           border: "none",
           borderRadius: "5px",
           cursor: "pointer",
+          fontSize: "16px",
         }}
       >
         Buscar
       </button>
-      <h1 style={{ fontSize: "18px" }}>Resultados:</h1>
     </div>
   );
 }
