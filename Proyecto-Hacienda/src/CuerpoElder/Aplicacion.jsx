@@ -1,52 +1,69 @@
 import React, { useState, useEffect } from "react";
-import { SearchBar, Inf } from "./mundo"; // Importación de componentes
-import { Inf2 } from "./TipoCambio";
+import { SearchBar, Inf2 } from "./TipoCambio";
 
 function Aplicacion() {
-  const [dolar, setDolar] = useState({}); // Estado para el valor del dólar y euro
-  const [tempJSON, setTempJSON] = useState({}); // "Archivo JSON temporal" en memoria
+  const [dolar, setDolar] = useState(""); // Estado para mostrar el valor del dólar y euro
+  const [apiResponse, setApiResponse] = useState(""); // Estado para el resultado de la búsqueda
 
-  // Llama a la API para buscar información por identificación
-  const handleSearch = async (text) => {
-    try {
-      const apiUrl = text.includes("codigo")
-        ? `https://api.hacienda.go.cr/fe/cabys?codigo=${text}`
-        : `https://api.hacienda.go.cr/fe/cabys?q=${text}`;
-
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setTempJSON({ busqueda: data }); // Guarda la respuesta de la búsqueda
-    } catch (error) {
-      console.error("Error al buscar:", error);
+  // Convierte un objeto en texto legible
+  const formatResponse = (data) => {
+    if (typeof data === "object" && data !== null) {
+      return Object.entries(data)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join("\n");
     }
+    return data.toString();
   };
 
-  // Llama a la API para obtener el valor del dólar y euro
-  const verdolar = async () => {
-    try {
-      const dolarurl = "https://api.hacienda.go.cr/indicadores/tc/dolar";
-      const eurourl = "https://api.hacienda.go.cr/indicadores/tc/euro";
+  // Llama a la API utilizando $.ajax para buscar información por identificación
+  const handleSearch = (text) => {
+    const apiUrl = text.includes("codigo")
+      ? `https://api.hacienda.go.cr/fe/cabys?codigo=${text}`
+      : `https://api.hacienda.go.cr/fe/cabys?q=${text}`;
 
-      const [dolarResponse, euroResponse] = await Promise.all([
-        fetch(dolarurl),
-        fetch(eurourl),
-      ]);
+    $.ajax({
+      url: apiUrl,
+      method: "GET",
+      success: (response) => {
+        setApiResponse(formatResponse(response)); // Guarda la respuesta en formato legible
+      },
+      error: (xhr) => {
+        console.error("Error al buscar:", xhr.statusText);
+        setApiResponse("Error al obtener datos de la API.");
+      },
+    });
+  };
 
-      if (!dolarResponse.ok || !euroResponse.ok) {
-        throw new Error("Error al obtener los datos");
-      }
+  // Llama a la API utilizando $.ajax para obtener el valor del dólar y euro
+  const verdolar = () => {
+    const dolarUrl = "https://api.hacienda.go.cr/indicadores/tc/dolar";
+    const euroUrl = "https://api.hacienda.go.cr/indicadores/tc/euro";
 
-      const dolarData = await dolarResponse.json();
-      const euroData = await euroResponse.json();
-
-      setDolar({ dolar: dolarData, euro: euroData });
-    } catch (error) {
-      console.error("Error al obtener los datos del dólar o euro:", error);
-    }
+    $.ajax({
+      url: dolarUrl,
+      method: "GET",
+      success: (dolarResponse) => {
+        $.ajax({
+          url: euroUrl,
+          method: "GET",
+          success: (euroResponse) => {
+            const formattedData = `Dólar\nCompra: ${dolarResponse.compra}\nVenta: ${dolarResponse.venta}\n\nEuro\nCompra: ${euroResponse.compra}\nVenta: ${euroResponse.venta}`;
+            setDolar(formattedData); // Almacena los datos formateados
+          },
+          error: (xhr) => {
+            console.error(
+              "Error al obtener el valor del euro:",
+              xhr.statusText
+            );
+            setDolar("Error al obtener el valor del euro.");
+          },
+        });
+      },
+      error: (xhr) => {
+        console.error("Error al obtener el valor del dólar:", xhr.statusText);
+        setDolar("Error al obtener el valor del dólar.");
+      },
+    });
   };
 
   useEffect(() => {
@@ -60,17 +77,15 @@ function Aplicacion() {
         fontFamily: "Arial, sans-serif",
         padding: "20px",
         backgroundColor: "#f4f4f4",
-        overflow: "hidden", // Eliminar barras de desplazamiento en el contenedor principal
-        height: "100vh", // Asegura que el contenido ocupe toda la altura de la pantalla sin scroll
-        margin: "0", // Eliminar márgenes para evitar el desplazamiento
+        height: "100vh",
+        margin: "0",
       }}
     >
       <h1
         style={{
           textAlign: "center",
           color: "#333",
-          overflow: "hidden", // Eliminar cualquier posible scroll en el título
-          marginBottom: "20px", // Añadir un poco de espacio debajo del título
+          marginBottom: "20px",
         }}
       >
         Aplicación de Búsqueda y Tipo de Cambio
@@ -81,13 +96,12 @@ function Aplicacion() {
           display: "flex",
           justifyContent: "space-between",
           marginTop: "20px",
-          overflow: "hidden", // Asegura que los componentes no causen desplazamiento
         }}
       >
-        <Inf texto={JSON.stringify(tempJSON, null, 2)} />{" "}
-        {/* Muestra el JSON temporal */}
-        <Inf2 texto={JSON.stringify(dolar, null, 2)} />{" "}
-        {/* Muestra el valor del dólar y euro */}
+        {/* Muestra el resultado del tipo de cambio */}
+        <Inf2 texto={dolar} />
+        {/* Muestra el resultado de la búsqueda */}
+        <Inf2 texto={apiResponse} />
       </div>
     </div>
   );
