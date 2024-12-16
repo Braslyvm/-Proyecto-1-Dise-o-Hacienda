@@ -1,25 +1,68 @@
-.circular-button {
-  width: 60px;
-  height: 60px;
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
+/* Logeo.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5; /* Color de fondo suave */
+  margin: 0;
+  padding: 0;
+}
+
+.l-logeo-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  height: 100vh; /* Centra el contenido verticalmente */
 }
 
-.circular-button:hover {
-  background-color: #45a049;
-  transform: scale(1.1);
+.l-h2 {
+  color: #333; /* Color del texto del encabezado */
+  margin-bottom: 20px;
 }
 
-.circular-button:active {
-  background-color: #3e8e41;
-  transform: scale(0.95);
+.l-form {
+  background-color: #fff; /* Fondo blanco para el formulario */
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  width: 300px; /* Ancho fijo del formulario */
+}
+
+.l-input-group {
+  margin-bottom: 15px; /* Espaciado entre los grupos de entrada */
+}
+
+.l-label {
+  display: block;
+  margin-bottom: 5px; /* Espaciado entre la etiqueta y el campo de entrada */
+  color: #555; /* Color de la etiqueta */
+}
+
+.l-input {
+  width: 100%; /* Ancho completo del campo de entrada */
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
+}
+
+.l-input:focus {
+  border-color: #007bff; /* Color del borde al enfocar */
+  outline: none; /* Sin contorno */
+}
+
+.l-button {
+  width: 100%; /* Ancho completo del botón */
+  padding: 10px; /* Espaciado interno */
+  background-color: #007bff; /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
+
+.l-button:hover {
+  background-color: #0056b3; /* Color de fondo al pasar el mouse */
 }
