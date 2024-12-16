@@ -14,7 +14,7 @@ function App() {
     return (
         <div className="app-container">
             <Sidebar changeContent={changeContent} />
-            <main className="main-content">
+            <main className="main-content"><h1><h1></h1></h1>
                 <Navbar />
                 <MainContent content={content} />
             </main>

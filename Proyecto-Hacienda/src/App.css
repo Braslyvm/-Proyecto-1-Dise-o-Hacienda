@@ -32,10 +32,9 @@ body {
   padding: 20px; /* Espaciado interior del contenido */
   flex-grow: 1; /* El contenido principal ocupará el espacio restante en la pantalla */
   overflow-y: auto; /* Permite que el contenido sea desplazable en caso de desbordamiento vertical */
-  margin-top: 60px; /* Ajusta para que el contenido respete la altura del Navbar, desplazándose debajo de él */
-  background-color: #ffffff; /* Define un color de fondo blanco para el contenido */
-  height: calc(100vh - 60px); /* Ajusta la altura para que ocupe toda la pantalla disponible, restando la altura del Navbar (60px) */
-  width: 185%; /* Asegura que el contenido ocupe todo el ancho disponible de la pantalla */
+  margin-top: 60px; 
+  background-color: #ffffff; 
+  height: calc(100vh - 60px);
 }
 
 
