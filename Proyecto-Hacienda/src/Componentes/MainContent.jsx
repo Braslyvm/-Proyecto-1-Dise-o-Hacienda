@@ -1,7 +1,8 @@
 // src/Componentes/MainContent.jsx
 import React from 'react';
 import SumaComponent from './Suma';  // Asegúrate de importar el componente Suma
-import Cambio from '../CuerpoElder/App.jsx';  // Importa con la primera letra en mayúscula
+import Buscador from '../CuerpoElder/Search.jsx';  // Importa con la primera letra en mayúscula
+import Valor from '../CuerpoElder/TipoCambio.jsx';
 
 function MainContent({ content }) {
     const renderContent = () => {
@@ -9,9 +10,9 @@ function MainContent({ content }) {
             case 'section1':
                 return <SumaComponent />;
             case 'section2':
-                return <Cambio />;  // Uso correcto del componente `Cambio`
+                return <Buscador />;  // Uso correcto del componente `Cambio`
             case 'section3':
-                return <div>Section 3 content</div>;
+                return <Valor />;
             default:
                 return <div>Welcome to the default section</div>;
         }
@@ -19,7 +20,6 @@ function MainContent({ content }) {
 
     return (
         <div className="main-content-area" style={{ height: '100%' }}>
-            <h2>{content === 'default' ? 'Welcome to the main content!' : `Content for ${content}`}</h2>
             {renderContent()}
         </div>
     );

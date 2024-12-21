@@ -29,7 +29,6 @@ function App() {
                         <div className="app-main">
                             <Sidebar changeContent={changeContent} />
                             <main className="main-content">
-                                <Navbar />
                                 <MainContent content={content} />
                             </main>
                         </div>
