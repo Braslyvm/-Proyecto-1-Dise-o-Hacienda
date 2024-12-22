@@ -5,33 +5,36 @@ function Search() {
   const [results, setResults] = useState([]); // Almacena los resultados de la búsqueda
   const [tempJSON, setTempJSON] = useState({}); // "Archivo JSON temporal" en memoria
 
-  const handleSearch = (nombreOCodigo) => {
+  const handleSearch = async (nombreOCodigo) => {
     const esCodigo = /^\d+$/.test(nombreOCodigo); // Verifica si es un número
     const apiUrl = esCodigo
       ? `https://api.hacienda.go.cr/fe/cabys?codigo=${encodeURIComponent(nombreOCodigo)}`
       : `https://api.hacienda.go.cr/fe/cabys?q=${encodeURIComponent(nombreOCodigo)}`;
 
-    $.ajax({
-      url: apiUrl,
-      method: "GET",
-    })
-      .done(function (response) {
-        if (!response || !response.cabys || response.cabys.length === 0) {
-          alert("No se encontraron resultados.");
-          return;
-        }
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
 
-        setResults(response.cabys); // Actualiza los resultados
-        setTempJSON({ busqueda: response.cabys }); // Guarda la respuesta completa temporalmente
-      })
-      .fail(function () {
-        alert("Error al realizar la solicitud.");
-      });
+      const data = await response.json();
+      if (!data.cabys || data.cabys.length === 0) {
+        alert("No se encontraron resultados.");
+        return;
+      }
+
+      setResults(data.cabys); // Actualiza los resultados
+      setTempJSON({ busqueda: data.cabys }); // Guarda la respuesta completa temporalmente
+    } catch (error) {
+      alert("Error al realizar la solicitud.");
+      console.error(error);
+    }
   };
 
   return (
     <div id="root">
-      <h2>Buscador de CABYS (Cátalogo de Bienes y Servicios)</h2>
+      <h2>Buscador de CABYS de Hacienda</h2>
+      <p>(Catálogo de Bienes y Servicios)</p>
       <div className="search-container">
         <input
           type="text"
