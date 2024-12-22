@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./TipoCambio.css";
 
 function TipoCambio() {
-  const [dolar, setDolar] = useState({ venta: null, compra: null });
-  const [euro, setEuro] = useState({ dolares: null, colones: null });
+  const [dolar, setDolar] = useState({});
+  const [euro, setEuro] = useState({});
 
   useEffect(() => {
     obtenerTipoCambio();
@@ -17,10 +17,7 @@ function TipoCambio() {
         throw new Error("Error al obtener el tipo de cambio del dólar");
       }
       const dataDolar = await responseDolar.json();
-      setDolar({
-        venta: dataDolar.venta.valor,
-        compra: dataDolar.compra.valor,
-      });
+      setDolar(dataDolar);
 
       // Obtiene el tipo de cambio del euro
       const responseEuro = await fetch("https://api.hacienda.go.cr/indicadores/tc/euro");
@@ -28,10 +25,7 @@ function TipoCambio() {
         throw new Error("Error al obtener el tipo de cambio del euro");
       }
       const dataEuro = await responseEuro.json();
-      setEuro({
-        dolares: dataEuro.dolares,
-        colones: dataEuro.colones,
-      });
+      setEuro(dataEuro);
     } catch (error) {
       console.error(error.message);
     }
@@ -44,10 +38,10 @@ function TipoCambio() {
         {dolar.venta && dolar.compra ? (
           <>
             <p>
-              <b>Venta:</b> {dolar.venta}
+              <b>Venta:</b> {dolar.venta.valor}
             </p>
             <p>
-              <b>Compra:</b> {dolar.compra}
+              <b>Compra:</b> {dolar.compra.valor}
             </p>
           </>
         ) : (
