@@ -7,9 +7,8 @@ function Sidebar({ changeContent }) {
         <div className="sidebar">
             <h2>Menu</h2>
             <ul>
-                <li><a href="#" onClick={() => changeContent('section1')}>Sumar</a></li>
-                <li><a href="#" onClick={() => changeContent('section2')}>Buscador</a></li>
-                <li><a href="#" onClick={() => changeContent('section3')}>Tipo de Cambio</a></li>
+                <li><a href="#" onClick={() => changeContent('section1')}>Buscador</a></li>
+                <li><a href="#" onClick={() => changeContent('section2')}>Tipo de cambio</a></li>
             </ul>
         </div>
     );

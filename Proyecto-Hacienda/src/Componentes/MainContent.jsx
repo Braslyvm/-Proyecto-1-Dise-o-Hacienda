@@ -8,10 +8,8 @@ function MainContent({ content }) {
     const renderContent = () => {
         switch (content) {
             case 'section1':
-                return <SumaComponent />;
-            case 'section2':
                 return <Buscador />;  // Uso correcto del componente `Cambio`
-            case 'section3':
+            case 'section2':
                 return <Valor />;
             default:
                 return <div>Welcome to the default section</div>;
