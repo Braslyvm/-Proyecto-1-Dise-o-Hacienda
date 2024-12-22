@@ -1,37 +1,39 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Importa Link de React Router
+import { useNavigate } from 'react-router-dom';
 import './Logeo.css';
 import { app } from './Autentificacion';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
-function Logeo() {
+function Registro() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-      firebase.auth().signInWithEmailAndPassword(email, password)
+      firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log('Usuario autenticado:', user);
-          navigate('/app');
+          console.log('Usuario registrado:', user);
+          navigate('/logeo');
         })
         .catch((error) => {
-          const errorMessage = error.message;
-          alert(`Error: ${errorMessage}`);
+          setError(error.message);
         });
     } else {
-      alert('Por favor, ingresa tu correo y contraseña');
+      setError('Por favor, ingresa tu correo y contraseña');
     }
   };
 
   return (
     <div className="l-logeo-container">
+      
+      {error && <p className="l-error">{error}</p>}
       <form className="l-form" onSubmit={handleSubmit}>
-        <h2 className="l-h2">Inicio de sesión</h2>
+      <h2 className="l-h2">Registro de usuario</h2>
         <div className="l-input-group">
           <label htmlFor="email" className="l-label">Correo electrónico</label>
           <input
@@ -54,14 +56,10 @@ function Logeo() {
             required
           />
         </div>
-        <button type="submit" className="l-button">Iniciar sesión</button>
-
-        <p className="l-register-link">
-        <Link to="/Registro">Regístrate aquí</Link>
-        </p>
+        <button type="submit" className="l-button">Registrarse</button>
       </form>
     </div>
   );
 }
 
-export default Logeo;
+export default Registro;
