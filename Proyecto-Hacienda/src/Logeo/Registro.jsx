@@ -28,7 +28,7 @@ export default function Registro() {
           navigate('/logeo'); // Redirigir al login después del registro
         })
         .catch((error) => {
-          setError(error.message); // Manejar error si ocurre
+          setError('Usuario ya existente');
         });
     } else {
       setError('Por favor, ingresa tu correo y contraseña');
@@ -54,7 +54,7 @@ export default function Registro() {
       <Typography component="h1" variant="h5">
         Registro de Usuario
       </Typography>
-      {error && <Typography color="error" variant="body2" sx={{ mt: 2 }}>{error}</Typography>} {/* Mensaje de error */}
+      {error && <Typography color="error" variant="body2" sx={{ mt: 2 }}>{error}</Typography>} 
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%', maxWidth: '400px' }}>
         <TextField
           variant="outlined"

@@ -13,11 +13,13 @@ import { useNavigate } from 'react-router-dom';
 import { app } from './Autentificacion'; // Asegúrate de que este archivo esté configurado correctamente
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import ManejoErrores from './ManejoErrores';
 
 export default function Logeo() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,11 +31,10 @@ export default function Logeo() {
           navigate('/app'); // Redirigir a la página principal después de iniciar sesión
         })
         .catch((error) => {
-          const errorMessage = error.message;
-          alert(`Error: ${errorMessage}`);
+          setError('El correo o la contraseña es incorrecta');
         });
     } else {
-      alert('Por favor, ingresa tu correo y contraseña');
+      setError('Por favor, ingresa tu correo y contraseña');
     }
   };
 
@@ -56,6 +57,7 @@ export default function Logeo() {
       <Typography component="h1" variant="h5">
         Iniciar Sesión
       </Typography>
+      {error && <Typography color="error" variant="body2" sx={{ mt: 2 }}>{error}</Typography>} 
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%', maxWidth: '400px' }}>
         <TextField
           variant="outlined"
