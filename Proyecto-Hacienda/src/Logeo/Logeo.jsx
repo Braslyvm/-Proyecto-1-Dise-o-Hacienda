@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Importa Link de React Router
-import './Logeo.css';
-import { app } from './Autentificacion';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
+import { app } from './Autentificacion'; // Asegúrate de que este archivo esté configurado correctamente
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
-function Logeo() {
+export default function Logeo() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -17,7 +25,7 @@ function Logeo() {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log('Usuario autenticado:', user);
-          navigate('/app');
+          navigate('/app'); // Redirigir a la página principal después de iniciar sesión
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -29,39 +37,68 @@ function Logeo() {
   };
 
   return (
-    <div className="l-logeo-container">
-      <form className="l-form" onSubmit={handleSubmit}>
-        <h2 className="l-h2">Inicio de sesión</h2>
-        <div className="l-input-group">
-          <label htmlFor="email" className="l-label">Correo electrónico</label>
-          <input
-            type="email"
-            id="email"
-            className="l-input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="l-input-group">
-          <label htmlFor="password" className="l-label">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            className="l-input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="l-button">Iniciar sesión</button>
-
-        <p className="l-register-link">
-        <Link to="/Registro">Regístrate aquí</Link>
-        </p>
-      </form>
-    </div>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      backgroundColor: '#ffffff', 
+      padding: '0 20px',
+      overflow: 'hidden',
+      marginTop: '-200px', // Ajusta este valor según sea necesario
+    }}>
+      <CssBaseline />
+      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Iniciar Sesión
+      </Typography>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%', maxWidth: '400px' }}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Correo Electrónico"
+          name="email"
+          autoComplete="email"
+          autoFocus
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Contraseña"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Iniciar Sesión
+        </Button>
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item>
+            <Link href="/Registro" variant="body2">
+              {"¿No tienes una cuenta? Regístrate"}
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 }
-
-export default Logeo;
