@@ -1,0 +1,53 @@
+h1 {
+  color: #000;
+}
+.detail-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse; /* Elimina los espacios entre las celdas */
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.detail-table th,
+.detail-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+  color: #000; /* Establece el color del texto a negro */
+}
+
+.detail-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.detail-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.star-button {
+  font-size: 24px;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s, transform 0.3s;
+  text-align: center;
+}
+
+/* Efecto de hover */
+.star-button:hover {
+  color: #28a745;
+  transform: scale(1.1); /* Aumento de tamaño en el hover */
+}
+
+/* Ajuste del tamaño de la estrella */
+.star-button::before {
+  content: "\2605"; /* Código Unicode para la estrella */
+  font-size: 30px;
+}

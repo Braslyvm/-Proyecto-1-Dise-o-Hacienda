@@ -51,15 +51,23 @@
 
 .table th,
 .table td {
-  border: 1px solid #ddd;
+  border: 1px solid #ffffff;
   padding: 0.5rem;
+  color: #0a0a0a;
 }
 
 .table th {
-  background-color: #f4f4f4;
+  background-color: #81c799;
   text-align: left;
 }
 
 .text-center {
   text-align: center;
+  color: #010202;
+}
+h2 {
+  color: rgb(11, 11, 11); 
+}
+p{
+  color: #010202;
 }
