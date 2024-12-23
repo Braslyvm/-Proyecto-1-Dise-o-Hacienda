@@ -7,6 +7,7 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { app } from './Autentificacion'; // Asegúrate de que este archivo esté configurado correctamente
@@ -46,7 +47,7 @@ export default function Logeo() {
       backgroundColor: '#ffffff', 
       padding: '0 20px',
       overflow: 'hidden',
-      marginTop: '-200px', // Ajusta este valor según sea necesario
+      marginTop: '-200px',
     }}>
       <CssBaseline />
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
