@@ -1,17 +1,32 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Search.css";
 import Modal from './Favoritos'; 
+import { getDocumentsByEmail } from '../Logeo/Autentificacion'; // Importa la función
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState(['Item 1', 'Item 2', 'Item 3']); 
+  const [favorites, setFavorites] = useState([]); 
+  const [results, setResults] = useState([]);
+  const [tempJSON, setTempJSON] = useState({});
+  
+  const userCorreo = "brasy"; // Correo del usuario (puede ser dinámico)
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const favoritos = await getDocumentsByEmail("brasy"); // Llamada a la función
+        setFavorites(favoritos);
+      } catch (error) {
+        console.error("Error al cargar favoritos:", error);
+      }
+    };
+
+    fetchFavorites();
+  }, [userCorreo]); // Se ejecuta cuando cambia `userCorreo`
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  const [results, setResults] = useState([]);
-  const [tempJSON, setTempJSON] = useState({});
 
   const handleSearch = async (nombreOCodigo) => {
     const esCodigo = /^\d+$/.test(nombreOCodigo);
@@ -64,14 +79,15 @@ function Search() {
           Buscar
         </button>
         <button
-        id="favorites-button"
-        style={{ marginLeft: '10px' }}
-        onClick={toggleModal}
-      >
-        Lista de Favoritos
-      </button>
-      <Modal isOpen={isModalOpen} onClose={toggleModal} favorites={favorites} />
-    </div>
+          id="favorites-button"
+          style={{ marginLeft: '10px' }}
+          onClick={toggleModal}
+        >
+          Lista de Favoritos
+        </button>
+        {/* Modal para favoritos */}
+        <Modal isOpen={isModalOpen} onClose={toggleModal} favorites={favorites} />
+      </div>
       <table className="table">
         <thead>
           <tr>
@@ -85,7 +101,7 @@ function Search() {
             <tr key={item.codigo}>
               <td>{item.codigo}</td>
               <td>
-              <Link
+                <Link
                   to={`/DetalleCabys/${item.descripcion}/param1/${item.impuesto}/param2/${item.codigo}/param3/${item.categorias}`}
                   className="descripcion"
                 >
