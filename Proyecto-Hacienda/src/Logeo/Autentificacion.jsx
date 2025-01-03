@@ -45,9 +45,9 @@ export const getDocumentsByEmail = async (correo) => {
   const db = firebase.firestore(); // Asegúrate de tener acceso a Firestore
   const favoritos = [];
   try {
-    const querySnapshot = await db.collection("Favorito").where("Correo", "==", "brasy").get();
+    const querySnapshot = await db.collection("Favorito").where("Correo", "==", "brasly").get();
     querySnapshot.forEach((doc) => {
-      console.log(doc.data());
+      console.log(doc.data()); // Ver qué datos devuelve cada documento
       favoritos.push(doc.data());
     });
   } catch (error) {
