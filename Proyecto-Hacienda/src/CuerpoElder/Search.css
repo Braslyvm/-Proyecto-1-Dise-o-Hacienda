@@ -1,73 +1,93 @@
+html, body {
+  height: 100%; /* Asegura que el html y el body ocupen toda la altura */
+  margin: 0; /* Elimina el margen por defecto */
+  padding: 0; /* Elimina el padding por defecto */
+  overflow: hidden; /* Evita el scroll en el body */
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: 1280px; /* Ancho máximo del contenedor */
+  margin: 0 auto; /* Centrar el contenedor */
+  padding: 2rem; /* Espaciado interno */
+  text-align: center; /* Alinear texto al centro */
+  height: 100vh; /* Ocupar toda la altura de la ventana */
+  display: flex; /* Usar flexbox */
+  flex-direction: column; /* Colocar elementos en columna */
+  box-sizing: border-box; /* Incluir padding en el tamaño total */
 }
 
 .search-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  display: flex; /* Usar flexbox para el contenedor de búsqueda */
+  justify-content: center; /* Centrar elementos */
+  gap: 1rem; /* Espacio entre elementos */
+  margin-bottom: 2rem; /* Espacio inferior */
 }
 
 #search-input {
-  padding: 0.5rem;
-  width: 300px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.5rem; /* Espaciado interno */
+  width: 300px; /* Ancho del input */
+  border: 1px solid #ddd; /* Borde del input */
+  border-radius: 4px; /* Bordes redondeados */
 }
 
 #search-button {
-  padding: 0.5rem 1rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  background-color: #4caf50; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar cursor al pasar */
 }
 
 #search-button:hover {
-  background-color: #45a049;
+  background-color: #45a049; /* Color de fondo al pasar */
 }
 
 .json-output {
-  margin-top: 2rem;
-  text-align: left;
-  background: #f9f9f9;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  max-height: 200px;
-  overflow-y: auto;
+  margin-top: 2rem; /* Espacio superior */
+  text-align: left; /* Alinear texto a la izquierda */
+  background: #f9f9f9; /* Color de fondo */
+  padding: 1rem; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde */
+  border-radius: 4px; /* Bordes redondeados */
+  max-height: 200px; /* Altura máxima */
+  overflow-y: auto; /* Scroll vertical si es necesario */
 }
 
 .table {
-  width: 100%;
-  margin-top: 2rem;
-  border-collapse: collapse;
+  width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho */
+  margin-top: 2rem; /* Espacio superior */
+  border-collapse: collapse; /* Colapsar bordes */
+  flex-grow: 1; /* Permitir que la tabla crezca */
+  max-height: calc(100vh - 300px); /* Ajusta según el espacio disponible */
+  overflow-y: auto; /* Permitir scroll vertical si es necesario */
 }
 
 .table th,
 .table td {
-  border: 1px solid #ffffff;
-  padding: 0.5rem;
-  color: #0a0a0a;
+  border: 1px solid #ffffff; /* Borde de las celdas */
+  padding: 0.5rem; /* Espaciado interno */
+  color: #0a0a0a; /* Color del texto */
 }
 
 .table th {
-  background-color: #81c799;
-  text-align: left;
+  background-color: #81c799; /* Color de fondo del encabezado */
+  text-align: left; /* Alinear texto a la izquierda */
 }
 
 .text-center {
-  text-align: center;
-  color: #010202;
+  text-align: center; /* Alinear texto al centro */
+  color: #010202; /* Color del texto */
 }
+
 h2 {
-  color: rgb(11, 11, 11); 
+  color: rgb(11, 11, 11); /* Color del encabezado */
 }
-p{
-  color: #010202;
+
+p {
+  color: #010202; /* Color del párrafo */
+}
+
+.favorite-letters {
+  color: black; /* Color visible para letras favoritas */
 }

@@ -30,9 +30,7 @@ body {
   flex-direction: column; /* Asegura que el contenido interno se acomode en columna */
   margin-left: 250px; /* Desplaza el contenido a la derecha para respetar el sidebar (asumido que el sidebar tiene un ancho de 250px) */
   padding: 20px; /* Espaciado interior del contenido */
-  flex-grow: 1; /* El contenido principal ocupará el espacio restante en la pantalla */
-  overflow-y: auto; /* Permite que el contenido sea desplazable en caso de desbordamiento vertical */
-  margin-top: 60px; 
+
   background-color: #ffffff; 
   height: calc(100vh - 60px);
 }

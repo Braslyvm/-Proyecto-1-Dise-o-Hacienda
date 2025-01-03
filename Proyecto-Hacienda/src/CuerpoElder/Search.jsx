@@ -1,8 +1,15 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Search.css";
+import Modal from './Favoritos'; 
 
 function Search() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [favorites, setFavorites] = useState(['Item 1', 'Item 2', 'Item 3']); 
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   const [results, setResults] = useState([]);
   const [tempJSON, setTempJSON] = useState({});
 
@@ -56,7 +63,15 @@ function Search() {
         >
           Buscar
         </button>
-      </div>
+        <button
+        id="favorites-button"
+        style={{ marginLeft: '10px' }}
+        onClick={toggleModal}
+      >
+        Lista de Favoritos
+      </button>
+      <Modal isOpen={isModalOpen} onClose={toggleModal} favorites={favorites} />
+    </div>
       <table className="table">
         <thead>
           <tr>
@@ -70,7 +85,7 @@ function Search() {
             <tr key={item.codigo}>
               <td>{item.codigo}</td>
               <td>
-                <Link
+              <Link
                   to={`/DetalleCabys/${item.descripcion}/param1/${item.impuesto}/param2/${item.codigo}/param3/${item.categorias}`}
                   className="descripcion"
                 >

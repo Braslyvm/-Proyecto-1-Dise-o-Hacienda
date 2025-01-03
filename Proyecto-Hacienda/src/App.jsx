@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./Componentes/Navbar";
 import Sidebar from "./Componentes/Sidebar";
 import MainContent from "./Componentes/MainContent";
 import Logeo from "./Logeo/Logeo";
