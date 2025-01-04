@@ -19,7 +19,7 @@ const db = firebase.firestore();
 export const deleteByEmailAndCode = async (correo, codigo) => {
   try {
     const querySnapshot = await db
-      .collection("Favorito")
+      .collection("Favoritos")
       .where("Correo", "==", correo)
       .where("Codigo", "==", codigo)
       .get();
@@ -30,7 +30,7 @@ export const deleteByEmailAndCode = async (correo, codigo) => {
     }
 
     querySnapshot.forEach(async (doc) => {
-      await db.collection("Favorito").doc(doc.id).delete();
+      await db.collection("Favoritos").doc(doc.id).delete();
       console.log(`Documento con ID ${doc.id} eliminado correctamente.`);
     });
   } catch (error) {
@@ -42,12 +42,12 @@ export const deleteByEmailAndCode = async (correo, codigo) => {
  * Función para obtener todos los documentos asociados con un correo.
  */
 export const getDocumentsByEmail = async (correo) => {
-  const db = firebase.firestore(); // Asegúrate de tener acceso a Firestore
+  const db = firebase.firestore(); 
   const favoritos = [];
   try {
-    const querySnapshot = await db.collection("Favorito").where("Correo", "==", "brasly").get();
+    const querySnapshot = await db.collection("Favoritos").where("Correo", "==", correo).get();
     querySnapshot.forEach((doc) => {
-      console.log(doc.data()); // Ver qué datos devuelve cada documento
+      console.log(doc.data()); 
       favoritos.push(doc.data());
     });
   } catch (error) {
