@@ -10,6 +10,7 @@ function MainContent({ content }) {
                 return <Buscador />;  // Uso correcto del componente `Cambio`
             case 'section2':
                 return <Valor />;
+                
             default:
                 return <div>Welcome to the default section</div>;
         }

@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./DetalleSearch.css";
 function DetalleCabys() {
   const { descripcion, param1, param2, param3 } = useParams();
