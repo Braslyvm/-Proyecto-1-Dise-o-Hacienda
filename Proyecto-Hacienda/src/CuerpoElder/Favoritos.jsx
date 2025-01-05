@@ -7,28 +7,27 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { deleteByEmailAndCode } from '../Logeo/Autentificacion';
 
-// Definir estilos con makeStyles
+
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
 }));
 
-const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => { // Agregar setResults aquí
+const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => { 
   const usuario = "brasly";
   const classes = useStyles(); 
 
-  // Función borrar
+  /**
+   * Funcion que que borra el producto favorito de la base de datos
+   * @param {*} codigo 
+   */
   const borrar = async (codigo) => {
     try {
       await deleteByEmailAndCode(usuario, codigo);
-      
-      // Actualizar la lista de favoritos
       const updatedFavorites = favorites.filter(item => item.Codigo !== codigo);
       setFavorites(updatedFavorites);
-
-      // También eliminar de results si está presente
-      setResults(prevResults => prevResults.filter(item => item.codigo !== codigo)); // Agregar esta línea
+      setResults(prevResults => prevResults.filter(item => item.codigo !== codigo));
     } catch (error) {
       console.error("Error al borrar el favorito:", error);
     }
