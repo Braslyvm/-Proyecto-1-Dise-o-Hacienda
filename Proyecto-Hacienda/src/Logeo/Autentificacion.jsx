@@ -44,15 +44,26 @@ export const deleteByEmailAndCode = async (correo, codigo) => {
 export const getDocumentsByEmail = async (correo) => {
   const db = firebase.firestore(); 
   const favoritos = [];
-  try {
-    const querySnapshot = await db.collection("Favoritos").where("Correo", "==", correo).get();
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data()); 
-      favoritos.push(doc.data());
-    });
-  } catch (error) {
-    console.error("Error al obtener documentos:", error);
-  }
+  const querySnapshot = await db.collection("Favoritos").where("Correo", "==", correo).get();
+  querySnapshot.forEach((doc) => {
+    console.log(doc.data()); 
+    favoritos.push(doc.data());
+  });
   return favoritos;
 };
 
+/**
+ * Funcion para agregar productos a la base de datos 
+ */
+
+export const setData = async (correo,descripcion,categoria,impusto,codigo) =>{
+  const db = firebase.firestore(); 
+  const docRef = await db.collection("productos").add({
+      Correo: correo,
+      Descripcion: descripcion,
+      Categoria: categoria,
+      Impuesto: impuesto,
+      Codigo: codigo,
+  });
+
+};

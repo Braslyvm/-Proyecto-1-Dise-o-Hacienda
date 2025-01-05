@@ -5,7 +5,7 @@ import './Favorito.css';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { deleteByEmailAndCode } from '../Logeo/Autentificacion'; // Importa la función
+import { deleteByEmailAndCode } from '../Logeo/Autentificacion';
 
 // Definir estilos con makeStyles
 const useStyles = makeStyles((theme) => ({
@@ -14,16 +14,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Favorito = ({ isOpen, onClose, favorites, setFavorites }) => {
-  const usuario = "brasly"; // Correo del usuario (puede ser dinámico)
-  const classes = useStyles(); // Aplicar estilos
+const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => { // Agregar setResults aquí
+  const usuario = "brasly";
+  const classes = useStyles(); 
 
   // Función borrar
   const borrar = async (codigo) => {
     try {
       await deleteByEmailAndCode(usuario, codigo);
-      // Actualizar el estado para eliminar el favorito borrado
-      setFavorites(favorites.filter(item => item.Codigo !== codigo));
+      
+      // Actualizar la lista de favoritos
+      const updatedFavorites = favorites.filter(item => item.Codigo !== codigo);
+      setFavorites(updatedFavorites);
+
+      // También eliminar de results si está presente
+      setResults(prevResults => prevResults.filter(item => item.codigo !== codigo)); // Agregar esta línea
     } catch (error) {
       console.error("Error al borrar el favorito:", error);
     }
@@ -91,7 +96,8 @@ Favorito.propTypes = {
       Impuesto: PropTypes.string, 
     })
   ).isRequired,
-  setFavorites: PropTypes.func.isRequired, // Agregar esta propiedad
+  setFavorites: PropTypes.func.isRequired,
+  setResults: PropTypes.func.isRequired, // Agregar esta propiedad
 };
 
 export default Favorito;

@@ -10,11 +10,11 @@ function Search() {
   const [results, setResults] = useState([]);
   const [tempJSON, setTempJSON] = useState({});
   
-  const userCorreo = "brasy"; // Correo del usuario (puede ser dinámico)
+  const userCorreo = "brasly"; 
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const favoritos = await getDocumentsByEmail("brasy"); // Llamada a la función
+        const favoritos = await getDocumentsByEmail(userCorreo); 
         setFavorites(favoritos);
       } catch (error) {
         console.error("Error al cargar favoritos:", error);
@@ -22,7 +22,7 @@ function Search() {
     };
 
     fetchFavorites();
-  }, [userCorreo]); // Se ejecuta cuando cambia `userCorreo`
+  }, [userCorreo]); 
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -86,8 +86,14 @@ function Search() {
           Lista de Favoritos
         </button>
         {/* Modal para favoritos */}
-        <Modal isOpen={isModalOpen} onClose={toggleModal} favorites={favorites} />
-      </div>
+        <Modal 
+          isOpen={isModalOpen} 
+          onClose={toggleModal} 
+          favorites={favorites} 
+          setFavorites={setFavorites} 
+          setResults={setResults} 
+        />
+              </div>
       <table className="table">
         <thead>
           <tr>
