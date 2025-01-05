@@ -11,7 +11,6 @@ function DetalleCabys() {
   return (
     <div>
       <h1>{descripcion}</h1>
-
       {/* Tabla para mostrar los detalles */}
       <table className="detail-table">
         <thead>
@@ -35,8 +34,7 @@ function DetalleCabys() {
           </tr>
         </tbody>
       </table>
-
-      <button className="star-button">&#10084;</button>
+      <button className="add-favorite">&#9733;</button> {/* ★ */}
     </div>
   );
 }
