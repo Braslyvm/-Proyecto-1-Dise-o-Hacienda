@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Search.css";
 import Modal from './Favoritos'; 
-import { getDocumentsByEmail } from '../Logeo/Autentificacion'; // Importa la función
+import { getDocumentsByEmail } from '../Logeo/Autentificacion'; 
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,19 +10,22 @@ function Search() {
   const [results, setResults] = useState([]);
   const [tempJSON, setTempJSON] = useState({});
   
-  const userCorreo = "brasy"; // Correo del usuario (puede ser dinámico)
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const favoritos = await getDocumentsByEmail("brasy"); // Llamada a la función
-        setFavorites(favoritos);
-      } catch (error) {
-        console.error("Error al cargar favoritos:", error);
-      }
-    };
+  const userCorreo = "brasly"; 
 
+  const fetchFavorites = async () => {
+    const favoritos = await getDocumentsByEmail(userCorreo);
+    setFavorites(favoritos);
+  };
+
+  useEffect(() => {
     fetchFavorites();
-  }, [userCorreo]); // Se ejecuta cuando cambia `userCorreo`
+  }, [userCorreo]);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      fetchFavorites();
+    }
+  }, [isModalOpen]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -85,8 +88,13 @@ function Search() {
         >
           Lista de Favoritos
         </button>
-        {/* Modal para favoritos */}
-        <Modal isOpen={isModalOpen} onClose={toggleModal} favorites={favorites} />
+        <Modal 
+          isOpen={isModalOpen} 
+          onClose={toggleModal} 
+          favorites={favorites} 
+          setFavorites={setFavorites} 
+          setResults={setResults} 
+        />
       </div>
       <table className="table">
         <thead>

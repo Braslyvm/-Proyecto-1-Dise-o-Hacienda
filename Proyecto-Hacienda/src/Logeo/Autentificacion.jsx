@@ -17,37 +17,26 @@ const db = firebase.firestore();
  * Función para eliminar un documento por correo y código.
  */
 export const deleteByEmailAndCode = async (correo, codigo) => {
-  try {
-    const querySnapshot = await db
-      .collection("Favorito")
-      .where("Correo", "==", correo)
-      .where("Codigo", "==", codigo)
-      .get();
+  const querySnapshot = await db
+    .collection("Favoritos")
+    .where("Correo", "==", correo)
+    .where("Codigo", "==", codigo)
+    .get();
 
-    if (querySnapshot.empty) {
-      console.log("No se encontró ningún documento con los datos proporcionados.");
-      return;
-    }
-
-    querySnapshot.forEach(async (doc) => {
-      await db.collection("Favorito").doc(doc.id).delete();
-      console.log(`Documento con ID ${doc.id} eliminado correctamente.`);
-    });
-  } catch (error) {
-    console.error("Error al eliminar el documento:", error);
-  }
+  querySnapshot.forEach((doc) => {
+    doc.ref.delete();
+  });
 };
-
 /**
  * Función para obtener todos los documentos asociados con un correo.
  */
 export const getDocumentsByEmail = async (correo) => {
-  const db = firebase.firestore(); // Asegúrate de tener acceso a Firestore
+  const db = firebase.firestore(); 
   const favoritos = [];
   try {
-    const querySnapshot = await db.collection("Favorito").where("Correo", "==", "brasly").get();
+    const querySnapshot = await db.collection("Favoritos").where("Correo", "==", correo).get();
     querySnapshot.forEach((doc) => {
-      console.log(doc.data()); // Ver qué datos devuelve cada documento
+      console.log(doc.data()); 
       favoritos.push(doc.data());
     });
   } catch (error) {
@@ -56,3 +45,36 @@ export const getDocumentsByEmail = async (correo) => {
   return favoritos;
 };
 
+
+
+/**
+ * Funcion para agregar productos a la base de datos 
+ */
+
+export const setData = async (correo, descripcion, categoria, impuesto, codigo) => {
+  const db = firebase.firestore(); 
+    await db.collection("Favoritos").add({
+      Correo: correo,
+      Descripcion: descripcion,
+      Categoria: categoria,
+      Impuesto: impuesto, 
+      Codigo: codigo,
+    });
+  };
+
+ /**
+ * Función para verificar si existe un documento por correo y código.
+ */
+export const exists = async (correo, codigo) => {
+  const querySnapshot = await db
+    .collection("Favoritos")
+    .where("Correo", "==", correo)
+    .where("Codigo", "==", codigo)
+    .get();
+console.log("querySnapshot");
+  if (querySnapshot.empty) {
+    return false;
+  } else {
+    return true;
+  }
+};

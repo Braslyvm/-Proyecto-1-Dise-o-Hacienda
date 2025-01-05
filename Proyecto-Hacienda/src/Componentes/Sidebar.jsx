@@ -1,14 +1,14 @@
 // src/Sidebar.jsx
-import React from 'react';
-import './Sidebar.css';
-import { useNavigate } from 'react-router-dom'; 
+import React from "react";
+import "./Sidebar.css";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar({ changeContent }) {
-    const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-    const handleLoginRedirect = () => {
-        navigate('/logeo'); 
-    };
+  const handleLoginRedirect = () => {
+    navigate("/logeo");
+  };
 
     return (
         <div className="sidebar">

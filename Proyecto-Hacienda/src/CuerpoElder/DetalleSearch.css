@@ -13,12 +13,12 @@ h1 {
 .detail-table td {
   padding: 12px;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #0d0d0d;
   color: #000; /* Establece el color del texto a negro */
 }
 
 .detail-table th {
-  background-color: #f4f4f4;
+  background-color: #cdc1ff;
   font-weight: bold;
 }
 
@@ -26,28 +26,41 @@ h1 {
   background-color: #f9f9f9;
 }
 
-.star-button {
-  font-size: 24px;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 50%;
+.add-favorite {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
   cursor: pointer;
+  font-size: 35px; /* Tamaño del icono */
+  color: rgb(72, 72, 72); /* Color del icono */
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  transition: background-color 0.3s, transform 0.3s;
-  text-align: center;
+  justify-content: center;
+  position: absolute;
+  top: 60px;
+  right: 255px;
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
 }
 
-/* Efecto de hover */
-.star-button:hover {
-  color: #28a745;
-  transform: scale(1.1); /* Aumento de tamaño en el hover */
+.add-favorite:hover {
+  color: rgb(255, 247, 0); /* Color del corazón */
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
+  display: inline-flex;
 }
-
-/* Ajuste del tamaño de la estrella */
-.star-button::before {
-  content: "\2605"; /* Código Unicode para la estrella */
-  font-size: 30px;
+.add-favorite.favorito {
+  display: inline-flex;
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
+  color: gold; /* Color del corazón */
 }
