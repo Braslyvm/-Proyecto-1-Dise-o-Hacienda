@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Search.css";
 import Modal from './Favoritos'; 
-import { getDocumentsByEmail } from '../Logeo/Autentificacion'; // Importa la función
+import { getDocumentsByEmail } from '../Logeo/Autentificacion'; 
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,18 +11,21 @@ function Search() {
   const [tempJSON, setTempJSON] = useState({});
   
   const userCorreo = "brasly"; 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const favoritos = await getDocumentsByEmail(userCorreo); 
-        setFavorites(favoritos);
-      } catch (error) {
-        console.error("Error al cargar favoritos:", error);
-      }
-    };
 
+  const fetchFavorites = async () => {
+    const favoritos = await getDocumentsByEmail(userCorreo);
+    setFavorites(favoritos);
+  };
+
+  useEffect(() => {
     fetchFavorites();
-  }, [userCorreo]); 
+  }, [userCorreo]);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      fetchFavorites();
+    }
+  }, [isModalOpen]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -85,7 +88,6 @@ function Search() {
         >
           Lista de Favoritos
         </button>
-        {/* Modal para favoritos */}
         <Modal 
           isOpen={isModalOpen} 
           onClose={toggleModal} 
@@ -93,7 +95,7 @@ function Search() {
           setFavorites={setFavorites} 
           setResults={setResults} 
         />
-              </div>
+      </div>
       <table className="table">
         <thead>
           <tr>

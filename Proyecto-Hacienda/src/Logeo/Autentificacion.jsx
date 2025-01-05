@@ -17,25 +17,35 @@ const db = firebase.firestore();
  * Función para eliminar un documento por correo y código.
  */
 export const deleteByEmailAndCode = async (correo, codigo) => {
-    const querySnapshot = await db
-      .collection("Favoritos")
-      .where("Correo", "==", correo)
-      .where("Codigo", "==", codigo)
-      .get();
-};
+  const querySnapshot = await db
+    .collection("Favoritos")
+    .where("Correo", "==", correo)
+    .where("Codigo", "==", codigo)
+    .get();
 
+  querySnapshot.forEach((doc) => {
+    doc.ref.delete();
+  });
+};
 /**
  * Función para obtener todos los documentos asociados con un correo.
  */
 export const getDocumentsByEmail = async (correo) => {
   const db = firebase.firestore(); 
   const favoritos = [];
-  const querySnapshot = await db.collection("Favoritos").where("Correo", "==", correo).get();
-  querySnapshot.forEach((doc) => {
-    favoritos.push(doc.data());
-  });
+  try {
+    const querySnapshot = await db.collection("Favoritos").where("Correo", "==", correo).get();
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data()); 
+      favoritos.push(doc.data());
+    });
+  } catch (error) {
+    console.error("Error al obtener documentos:", error);
+  }
   return favoritos;
 };
+
+
 
 /**
  * Funcion para agregar productos a la base de datos 
