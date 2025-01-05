@@ -13,12 +13,12 @@ h1 {
 .detail-table td {
   padding: 12px;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #0d0d0d;
   color: #000; /* Establece el color del texto a negro */
 }
 
 .detail-table th {
-  background-color: #f4f4f4;
+  background-color: #cdc1ff;
   font-weight: bold;
 }
 
@@ -28,22 +28,39 @@ h1 {
 
 .add-favorite {
   background-color: transparent; /* Fondo transparente */
-  border: NONE; /* Sin borde */
-  padding: 0; /* Sin padding */
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
   cursor: pointer;
-  font-size: 24px; /* Tamaño de fuente más grande para el corazón */
-  color: rgb(72, 72, 72); /* Color del corazón */
-  border-color: #000;
+  font-size: 35px; /* Tamaño del icono */
+  color: rgb(72, 72, 72); /* Color del icono */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 67PX;
-  right: 255PX;
+  top: 60px;
+  right: 255px;
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
 }
+
 .add-favorite:hover {
   color: rgb(255, 247, 0); /* Color del corazón */
-  background-color: white
-  ; /* Cambia el fondo ligeramente en hover */
-  padding: 0; /* Sin padding */
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
+  display: inline-flex;
+}
+.add-favorite.favorito {
+  display: inline-flex;
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+  padding: 0; /* Sin relleno */
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
+  color: gold; /* Color del corazón */
 }

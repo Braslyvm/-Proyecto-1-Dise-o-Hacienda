@@ -60,4 +60,21 @@ export const setData = async (correo, descripcion, categoria, impuesto, codigo) 
       Impuesto: impuesto, 
       Codigo: codigo,
     });
+  };
+
+ /**
+ * Función para verificar si existe un documento por correo y código.
+ */
+export const exists = async (correo, codigo) => {
+  const querySnapshot = await db
+    .collection("Favoritos")
+    .where("Correo", "==", correo)
+    .where("Codigo", "==", codigo)
+    .get();
+console.log("querySnapshot");
+  if (querySnapshot.empty) {
+    return false;
+  } else {
+    return true;
+  }
 };
