@@ -1,0 +1,25 @@
+div {
+    font-family: Arial, sans-serif;
+  }
+  
+  input[type="date"] {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  p {
+    text-align: center;
+    color: #888;
+  }
+  
