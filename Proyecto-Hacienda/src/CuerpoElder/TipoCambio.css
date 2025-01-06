@@ -1,11 +1,12 @@
+/* Estilos para el contenedor del tipo de cambio */
 .tipo-cambio-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid #E5D9F2;  /* Usando un color más suave de la paleta */
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #F5EFFF;  /* Fondo suave y claro */
 }
 
 .tipo-cambio {
@@ -14,14 +15,38 @@
 
 .tipo-cambio h3 {
   margin-bottom: 1rem;
-  color: #333;
+  color: #6B52F2;  /* Oscurecido para mejorar la visibilidad */
+  font-weight: bold;
 }
 
 .tipo-cambio p {
   margin: 0.5rem 0;
   font-size: 1rem;
+  color: #333;  /* Color oscuro para el texto principal */
 }
 
 .tipo-cambio p b {
-  color: #555;
+  color: #5E4AB6;  /* Un tono de morado más oscuro para el texto en negrita */
+}
+
+.tipo-cambio button {
+  background-color: #6B52F2;  /* Color oscuro para el botón */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tipo-cambio button:hover {
+  background-color: #CDC1FF;  /* Color más claro en hover */
+  transform: scale(1.05);
+}
+
+.tipo-cambio button:focus {
+  outline: 3px solid #F5EFFF;
+  outline-offset: 2px;
 }

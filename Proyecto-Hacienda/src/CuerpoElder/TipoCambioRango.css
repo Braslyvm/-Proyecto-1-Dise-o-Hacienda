@@ -1,25 +1,60 @@
+/* Estilos para el contenedor general */
 div {
-    font-family: Arial, sans-serif;
-  }
-  
-  input[type="date"] {
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  p {
-    text-align: center;
-    color: #888;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #F5EFFF; /* Color de fondo claro para el contenedor */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Estilo para los inputs de tipo "date" */
+input[type="date"] {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #CDC1FF;  /* Borde en color intermedio de la paleta */
+  border-radius: 4px;
+  font-size: 16px;
+  color: #6B52F2;  /* Texto con color oscuro de la paleta para mayor legibilidad */
+  background-color: #E5D9F2;  /* Fondo suave en color intermedio de la paleta */
+}
+
+/* Efecto al pasar el cursor sobre los botones */
+button:hover {
+  background-color: #A294F9;  /* Fondo morado oscuro al hacer hover */
+  color: white;  /* Texto blanco para contraste */
+  transform: scale(1.05);  /* Efecto de escala para hacer el botón más interactivo */
+}
+
+/* Estilo para el botón en su estado normal */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #CDC1FF;  /* Fondo suave en color intermedio */
+  color: #6B52F2;  /* Texto morado oscuro para contraste */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
+
+/* Estilo para el título */
+h2 {
+  text-align: center;
+  color: #6B52F2;  /* Título en el color morado más oscuro */
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Estilo para los párrafos */
+p {
+  text-align: center;
+  color: #6B52F2;  /* Color de texto para los párrafos */
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* Estilo para el enfoque en los botones */
+button:focus {
+  outline: 3px solid #F5EFFF; /* Outline sutil para el enfoque */
+  outline-offset: 2px;
+}

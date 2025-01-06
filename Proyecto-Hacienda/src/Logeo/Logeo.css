@@ -1,12 +1,12 @@
 /* Logeo.css */
 body {
-  margin: 0; /* Elimina el margen por defecto */
+  margin: 100px; /* Elimina el margen por defecto */
   overflow: hidden; /* Evita el scroll en el body */
 }
 
 .scroll-container {
   width: 400px; /* Ancho fijo */
-  height: 100vh; /* Altura fija */
+  height: 200vh; /* Altura fija */
   overflow: hidden; /* Evita el scroll */
 }
 

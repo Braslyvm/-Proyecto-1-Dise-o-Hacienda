@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { app } from './Autentificacion'; // Asegúrate de que este archivo esté configurado correctamente
+import { app } from './Autentificacion'; 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import ManejoErrores from './ManejoErrores';

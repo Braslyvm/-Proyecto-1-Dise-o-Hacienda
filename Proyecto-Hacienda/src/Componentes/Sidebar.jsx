@@ -18,7 +18,7 @@ function Sidebar({ changeContent }) {
                 <li><a href="#" onClick={() => changeContent('section2')}>Tipo de cambio</a></li>
                 <li><a href="#" onClick={() => changeContent('section3')}>Comportamiento del dólar</a></li>
             </ul>
-            <button onClick={handleLoginRedirect}>Inicio Sesión</button>
+            <button onClick={handleLoginRedirect}>Cerrar Sesión</button>
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
+import "./TipoCambioRango.css";
 
 const TipoCambioRango = () => {
   const [activeSection, setActiveSection] = useState("rango");
