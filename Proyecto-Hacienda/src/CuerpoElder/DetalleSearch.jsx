@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Importa useNavigate
 import "./DetalleSearch.css";
 import {
   setData,
@@ -10,11 +10,12 @@ import {
 function DetalleCabys() {
   const usuario = "brasly";
   const { descripcion, param1, param2, param3 } = useParams();
+  const navigate = useNavigate(); // Hook para navegar
 
   if (!descripcion || !param1 || !param2 || !param3) {
     return <div>Parámetros no encontrados.</div>;
   }
-  //funcion para consultar si existe un producto
+
   const [valor, setValor] = useState(false);
 
   useEffect(() => {
@@ -27,7 +28,6 @@ function DetalleCabys() {
     fetchValor();
   }, [usuario, param2]);
 
-  /*funcion para agregar a favoritos */
   const [favorito, setFavorito] = useState(false);
 
   const handleFavoriteClick = async () => {
@@ -41,7 +41,7 @@ function DetalleCabys() {
       console.log("Eliminando de favoritos.");
       await deleteByEmailAndCode(usuario, param2);
     }
-    setValor(nuevoFavorito); // Actualiza valor para mantener consistencia
+    setValor(nuevoFavorito);
   };
 
   return (
@@ -75,6 +75,10 @@ function DetalleCabys() {
         onClick={handleFavoriteClick}
       >
         {favorito ? "★" : "☆"}
+      </button>
+      {/* Botón para volver atrás */}
+      <button className="back-button" onClick={() => navigate(-1)}>
+        Volver atrás
       </button>
     </div>
   );

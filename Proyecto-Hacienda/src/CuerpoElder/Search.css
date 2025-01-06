@@ -19,7 +19,8 @@ html, body {
 
 .search-container {
   display: flex; /* Usar flexbox para el contenedor de búsqueda */
-  justify-content: center; /* Centrar elementos */
+  align-items: center; /* Centrar elementos verticalmente */
+  justify-content: center; /* Centrar elementos horizontalmente */
   gap: 1rem; /* Espacio entre elementos */
   margin-bottom: 2rem; /* Espacio inferior */
 }
@@ -30,27 +31,33 @@ html, body {
   border: 1px solid #CDC1FF; /* Borde suave con el tono de la paleta */
   border-radius: 8px; /* Bordes redondeados */
   background-color: #F5EFFF; /* Fondo suave */
-  color: #6B52F2; /* Color de texto oscuro */
+  color: #6B52F2; /* Color de texto */
+  font-size: 16px; /* Tamaño de texto */
+  box-sizing: border-box; /* Incluir padding en el tamaño */
 }
 
 #search-button {
   padding: 0.8rem 1.2rem; /* Espaciado interno */
-  background-color: #A294F9; /* Color de fondo con tono de la paleta */
+  background-color: #A294F9; /* Color de fondo */
   color: white; /* Color del texto */
   border: none; /* Sin borde */
   border-radius: 8px; /* Bordes redondeados */
   cursor: pointer; /* Cambiar cursor al pasar */
+  font-size: 16px; /* Tamaño de texto */
+  height: auto; /* Ajustar altura automáticamente */
+  display: flex; /* Usar flexbox para centrar el texto */
+  align-items: center; /* Centrar texto verticalmente */
   transition: background-color 0.3s ease;
 }
 
 #search-button:hover {
-  background-color: #6B52F2; /* Color más oscuro al pasar el mouse */
+  background-color: #4500b3; /* Fondo más oscuro al pasar */
 }
 
 .json-output {
   margin-top: 2rem; /* Espacio superior */
   text-align: left; /* Alinear texto a la izquierda */
-  background: #E5D9F2; /* Fondo más suave con el tono de la paleta */
+  background: #E5D9F2; /* Fondo más suave */
   padding: 1rem; /* Espaciado interno */
   border: 1px solid #CDC1FF; /* Borde suave */
   border-radius: 8px; /* Bordes redondeados */
@@ -62,7 +69,6 @@ html, body {
   width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho */
   margin-top: 2rem; /* Espacio superior */
   border-collapse: collapse; /* Colapsar bordes */
-  flex-grow: 1; /* Permitir que la tabla crezca */
   max-height: calc(100vh - 300px); /* Ajusta según el espacio disponible */
   overflow-y: auto; /* Permitir scroll vertical si es necesario */
 }
@@ -98,4 +104,46 @@ p {
 .favorite-letters {
   color: #A294F9; /* Color visible para letras favoritas */
   font-weight: bold;
+}
+
+/* Estilos barra desplegable */
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Para que quede justo debajo del botón */
+  left: 2000px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgb(255, 251, 251);
+  z-index: 1000;
+  width: 250px; /* Ancho del menú */
+  display: none; /* Ocultarlo inicialmente */
+}
+
+.dropdown-menu.active {
+  display: block; /* Mostrar el menú cuando está activo */
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  color: black;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+  color: #007BFF;
+}
+
+.categoria-dropdown {
+  margin-top: 10px;
+  padding: 9px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 250px;
+  font-size: 14px;
+ 
 }

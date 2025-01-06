@@ -2,15 +2,35 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Search.css";
 import Modal from './Favoritos'; 
-import { getDocumentsByEmail } from '../Logeo/Autentificacion'; 
+import { getDocumentsByEmail } from '../Logeo/Autentificacion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [favorites, setFavorites] = useState([]); 
   const [results, setResults] = useState([]);
   const [tempJSON, setTempJSON] = useState({});
-  
-  const userCorreo = "brasly"; 
+
+  const userCorreo = "brasly";
+
+  const categorias = [
+    "Productos agrícolas y alimenticios",
+    "Productos químicos",
+    "Productos textiles y prendas de vestir",
+    "Productos minerales y metales",
+    "Máquinas y aparatos",
+    "Vehículos",
+    "Productos farmacéuticos",
+    "Tecnología e informática",
+    "Instrumentos ópticos, médicos y de precisión",
+    "Muebles y artículos de decoración",
+    "Productos plásticos y caucho",
+    "Productos de papel y cartón",
+    "Productos de madera",
+    "Electrodomésticos y equipos eléctricos",
+    "Servicios relacionados (como transporte, seguros, etc.)",
+  ];
 
   const fetchFavorites = async () => {
     const favoritos = await getDocumentsByEmail(userCorreo);
@@ -79,14 +99,14 @@ function Search() {
             else alert("Por favor, ingrese un criterio de búsqueda.");
           }}
         >
-          Buscar
+          <FontAwesomeIcon icon={faSearch} />
         </button>
         <button
           id="favorites-button"
           style={{ marginLeft: '10px' }}
           onClick={toggleModal}
         >
-          Lista de Favoritos
+          Favoritos
         </button>
         <Modal 
           isOpen={isModalOpen} 
@@ -95,6 +115,21 @@ function Search() {
           setFavorites={setFavorites} 
           setResults={setResults} 
         />
+      </div>
+      <div className="busquedacat">
+        <select
+          onChange={(e) => handleSearch(e.target.value)}
+          className="categoria-dropdown"
+        >
+          <option value="" disabled selected>
+            Categorias
+          </option>
+          {categorias.map((categoria, index) => (
+            <option key={index} value={categoria}>
+              {categoria}
+            </option>
+          ))}
+        </select>
       </div>
       <table className="table">
         <thead>
