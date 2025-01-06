@@ -1,0 +1,51 @@
+.home-container {
+    background: linear-gradient(180deg, #F5EFFF, #E5D9F2);
+    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+    display: flex; /* Flexbox para centrar */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    padding: 2rem;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+.home-content {
+    background-color: #CDC1FF;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px; /* Ancho máximo para contenido */
+    width: 100%; /* Asegura que sea responsivo */
+}
+
+.home-title {
+    font-size: 2rem;
+    color: #A294F9;
+    margin-bottom: 1rem;
+}
+
+.home-description {
+    font-size: 1rem;
+    color: #4A4A4A;
+    margin-bottom: 1.5rem;
+}
+
+.home-list {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 600px; /* Limita el ancho del listado */
+    padding: 0;
+    list-style-type: disc; /* Aplica un estilo de viñetas */
+}
+
+.home-list li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #333; /* Color del texto del listado */
+}
+
+.home-footer {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #555;
+}

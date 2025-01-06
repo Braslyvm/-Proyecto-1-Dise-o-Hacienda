@@ -1,0 +1,37 @@
+.navbar {
+    position: fixed; /* Fija el navbar en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%; /* Abarca todo el ancho de la pantalla */
+    z-index: 1000; /* Asegura que el navbar esté por encima de otros elementos */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #A294F9; /* Color del fondo */
+    color: white; /* Color del texto */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+  }
+  
+  .navbar-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .navbar-icon .icon {
+    color: #A294F9;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .navbar-icon:hover .icon {
+    color: #CDC1FF;
+    transform: scale(1.1);
+  }
+  
