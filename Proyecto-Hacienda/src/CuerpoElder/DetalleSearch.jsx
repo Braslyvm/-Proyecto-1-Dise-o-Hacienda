@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useAuth } from '../Logeo/Lectura';
 import "./DetalleSearch.css";
 import {
   setData,
@@ -8,7 +9,8 @@ import {
 } from "../Logeo/Autentificacion";
 
 function DetalleCabys() {
-  const usuario = "brasly";
+  const { email } = useAuth(); 
+  const usuario = email;
   const { descripcion, param1, param2, param3 } = useParams();
   const navigate = useNavigate(); // Hook para navegar
 

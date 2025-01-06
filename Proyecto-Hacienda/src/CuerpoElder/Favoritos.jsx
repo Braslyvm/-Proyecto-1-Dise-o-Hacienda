@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { deleteByEmailAndCode } from '../Logeo/Autentificacion';
+import { useAuth } from '../Logeo/Lectura';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => { 
-  const usuario = "brasly";
+  const { email } = useAuth(); 
+  const usuario = email;
   const classes = useStyles(); 
 
   /**

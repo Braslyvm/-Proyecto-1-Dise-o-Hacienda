@@ -7,6 +7,7 @@ import Navbar from "./Componentes/Navbar";
 import Logeo from "./Logeo/Logeo";
 import Registro from "./Logeo/Registro";
 import DetalleCabys from "./CuerpoElder/DetalleSearch";
+import { AuthProvider } from './Logeo/Lectura';
 import "./App.css";
 
 function App() {
@@ -18,32 +19,34 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      {useLocation().pathname === '/' ? (
-        <Navbar />
-      ) : (useLocation().pathname !== '/logeo' && useLocation().pathname !== '/registro') ? (
-        <Sidebar changeContent={changeContent} />
-      ) : null}
+    <AuthProvider>
+      <div className="app-container">
+        {useLocation().pathname === '/' ? (
+          <Navbar />
+        ) : (useLocation().pathname !== '/logeo' && useLocation().pathname !== '/registro') ? (
+          <Sidebar changeContent={changeContent} />
+        ) : null}
 
-      
-      <main className="main-content">
-        <Routes>
-          <Route
-            path="/DetalleCabys/:descripcion/param1/:param1/param2/:param2/param3/:param3"
-            element={<DetalleCabys />}
-          />
-          <Route path="/" element={<Home />} />
-          <Route path="/logeo" element={<Logeo />} />
-          <Route path="/registro" element={<Registro />} />
-          <Route path="/Navbar" element={<Navbar />} />
-         
-          <Route
-            path="/app"
-            element={<MainContent content={content} />}
-          />
-        </Routes>
-      </main>
-    </div>
+        
+        <main className="main-content">
+          <Routes>
+            <Route
+              path="/DetalleCabys/:descripcion/param1/:param1/param2/:param2/param3/:param3"
+              element={<DetalleCabys />}
+            />
+            <Route path="/" element={<Home />} />
+            <Route path="/logeo" element={<Logeo />} />
+            <Route path="/registro" element={<Registro />} />
+            <Route path="/Navbar" element={<Navbar />} />
+          
+            <Route
+              path="/app"
+              element={<MainContent content={content} />}
+            />
+          </Routes>
+        </main>
+      </div>
+    </AuthProvider>
   );
 }
 const AppWithRouter = () => (

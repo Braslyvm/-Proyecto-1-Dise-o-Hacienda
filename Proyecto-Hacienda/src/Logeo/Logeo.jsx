@@ -10,13 +10,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { app } from './Autentificacion'; 
+import { app } from './Autentificacion'; // Asegúrate de que este archivo esté configurado correctamente
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import ManejoErrores from './ManejoErrores';
+import { useAuth } from './Lectura'; 
 
 export default function Logeo() {
-  const [email, setEmail] = useState('');
+  const { setEmail } = useAuth(); // Obtén la función para establecer el correo
+  const [email, setEmailLocal] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -26,8 +28,10 @@ export default function Logeo() {
     if (email && password) {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
+          setEmail(email); 
           const user = userCredential.user;
-          console.log('Usuario autenticado:', user);
+          
+          
           navigate('/app'); // Redirigir a la página principal después de iniciar sesión
         })
         .catch((error) => {
@@ -70,7 +74,7 @@ export default function Logeo() {
           autoComplete="email"
           autoFocus
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmailLocal(e.target.value)}
         />
         <TextField
           variant="outlined"

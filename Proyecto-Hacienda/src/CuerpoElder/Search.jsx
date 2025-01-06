@@ -5,6 +5,7 @@ import Modal from './Favoritos';
 import { getDocumentsByEmail } from '../Logeo/Autentificacion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../Logeo/Lectura';
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,8 +13,8 @@ function Search() {
   const [results, setResults] = useState([]);
   const [tempJSON, setTempJSON] = useState({});
 
-  const userCorreo = "brasly";
-
+  const { email } = useAuth(); 
+  const userCorreo = email;
   const categorias = [
     "Productos agrícolas y alimenticios",
     "Productos químicos",
