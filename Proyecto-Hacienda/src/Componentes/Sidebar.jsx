@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 function Sidebar({ changeContent }) {
   const navigate = useNavigate();
 
-  const handleLoginRedirect = () => {
-    navigate("/logeo");
+  const handleHomeRedirect = () => {
+    navigate("/");
   };
 
     return (
@@ -18,7 +18,7 @@ function Sidebar({ changeContent }) {
                 <li><a href="#" onClick={() => changeContent('section2')}>Tipo de cambio</a></li>
                 <li><a href="#" onClick={() => changeContent('section3')}>Comportamiento del dólar</a></li>
             </ul>
-            <button onClick={handleLoginRedirect}>Cerrar Sesión</button>
+            <button onClick={handleHomeRedirect}>Cerrar Sesión</button>
         </div>
     );
 }
