@@ -1,10 +1,12 @@
 .home-container {
-    background: linear-gradient(180deg, #F5EFFF, #E5D9F2);
+    background: linear-gradient(180deg, #a57aeb, #E5D9F2);
     min-height: 100vh; /* Ocupa toda la altura de la ventana */
-    display: flex; /* Flexbox para centrar */
+    display:flex ; /* Flexbox para centrar */
     align-items: center; /* Centra verticalmente */
     justify-content: center; /* Centra horizontalmente */
-    padding: 2rem;
+    padding: 4%;
+    position: relative;
+    left: -120px;
     box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
