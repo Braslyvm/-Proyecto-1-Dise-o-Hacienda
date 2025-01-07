@@ -26,8 +26,6 @@ function App() {
         ) : (useLocation().pathname !== '/logeo' && useLocation().pathname !== '/Registro' && useLocation().pathname !== '/') ? (
           <Sidebar changeContent={changeContent} />
         ) : null}
-
-        
         <main className="main-content">
           <Routes>
             <Route

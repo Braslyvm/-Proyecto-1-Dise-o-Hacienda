@@ -45,7 +45,8 @@ export default function Registro() {
       backgroundColor: '#ffffff',
       padding: '0 20px',
       overflow: 'hidden',
-      marginTop: '-200px',
+      marginTop: '-100px',
+      marginLeft: '-250px',
     }}>
       <CssBaseline />
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
