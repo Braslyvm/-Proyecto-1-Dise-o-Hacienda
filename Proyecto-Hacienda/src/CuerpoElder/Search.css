@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho y alto total */
+}
+
 html, body {
   height: 100%; /* Asegura que el html y el body ocupen toda la altura */
   margin: 0; /* Elimina el margen por defecto */
@@ -7,22 +11,19 @@ html, body {
 }
 
 #root {
-  max-width: 1280px; /* Ancho máximo del contenedor */
-  margin: 0 auto; /* Centrar el contenedor */
-  padding: 2rem; /* Espaciado interno */
-  text-align: center; /* Alinear texto al centro */
   height: 100vh; /* Ocupar toda la altura de la ventana */
   display: flex; /* Usar flexbox */
   flex-direction: column; /* Colocar elementos en columna */
-  box-sizing: border-box; /* Incluir padding en el tamaño total */
+  align-items: center; /* Centrar todo en el eje horizontal */
+  justify-content: flex-start; /* Asegura que los elementos estén en la parte superior */
 }
 
 .search-container {
   display: flex; /* Usar flexbox para el contenedor de búsqueda */
   align-items: center; /* Centrar elementos verticalmente */
-  justify-content: center; /* Centrar elementos horizontalmente */
-  gap: 1rem; /* Espacio entre elementos */
+  justify-content: flex-start; /* Alinear elementos hacia la izquierda */
   margin-bottom: 2rem; /* Espacio inferior */
+  height: 40px; /* Aseguramos que la altura total del contenedor sea la misma */
 }
 
 #search-input {
@@ -33,10 +34,11 @@ html, body {
   background-color: #F5EFFF; /* Fondo suave */
   color: #6B52F2; /* Color de texto */
   font-size: 16px; /* Tamaño de texto */
-  box-sizing: border-box; /* Incluir padding en el tamaño */
+  margin-right: 10px; /* Espacio entre el input y el botón de búsqueda */
+  height: 100%; /* Aseguramos que el input ocupe todo el contenedor */
 }
 
-#search-button {
+#search-button, #favorites-button {
   padding: 0.8rem 1.2rem; /* Espaciado interno */
   background-color: #A294F9; /* Color de fondo */
   color: white; /* Color del texto */
@@ -44,33 +46,34 @@ html, body {
   border-radius: 8px; /* Bordes redondeados */
   cursor: pointer; /* Cambiar cursor al pasar */
   font-size: 16px; /* Tamaño de texto */
-  height: auto; /* Ajustar altura automáticamente */
+  height: 100%; /* Aseguramos que el botón ocupe todo el contenedor */
   display: flex; /* Usar flexbox para centrar el texto */
   align-items: center; /* Centrar texto verticalmente */
   transition: background-color 0.3s ease;
 }
 
-#search-button:hover {
+#search-button:hover, #favorites-button:hover {
   background-color: #4500b3; /* Fondo más oscuro al pasar */
 }
 
-.json-output {
-  margin-top: 2rem; /* Espacio superior */
-  text-align: left; /* Alinear texto a la izquierda */
-  background: #E5D9F2; /* Fondo más suave */
-  padding: 1rem; /* Espaciado interno */
-  border: 1px solid #CDC1FF; /* Borde suave */
-  border-radius: 8px; /* Bordes redondeados */
-  max-height: 200px; /* Altura máxima */
-  overflow-y: auto; /* Scroll vertical si es necesario */
+.busquedacat {
+  margin-top: 1rem; /* Espacio superior para la categoría */
+}
+
+.categoria-dropdown {
+  margin-top: 10px;
+  padding: 9px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 250px;
+  font-size: 14px;
 }
 
 .table {
   width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho */
   margin-top: 2rem; /* Espacio superior */
   border-collapse: collapse; /* Colapsar bordes */
-  max-height: calc(100vh - 300px); /* Ajusta según el espacio disponible */
-  overflow-y: auto; /* Permitir scroll vertical si es necesario */
 }
 
 .table th,
@@ -97,53 +100,22 @@ h2 {
   font-weight: bold;
 }
 
-p {
-  color: #010202; /* Color del párrafo */
+.favorite {
+  margin-top: 1rem; /* Espacio superior para el elemento favorito */
+  display: flex; /* Usar flexbox para el contenedor de favoritos */
+  align-items: center; /* Centrar elementos verticalmente */
 }
 
-.favorite-letters {
-  color: #A294F9; /* Color visible para letras favoritas */
-  font-weight: bold;
+.favorite-button {
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  background-color: #FFD700; /* Color dorado para el botón de favoritos */
+  color: #000; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar cursor al pasar */
+  transition: background-color 0.3s ease; /* Transición suave */
 }
 
-/* Estilos barra desplegable */
-.dropdown-menu {
-  position: absolute;
-  top: 100%; /* Para que quede justo debajo del botón */
-  left: 2000px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgb(255, 251, 251);
-  z-index: 1000;
-  width: 250px; /* Ancho del menú */
-  display: none; /* Ocultarlo inicialmente */
-}
-
-.dropdown-menu.active {
-  display: block; /* Mostrar el menú cuando está activo */
-}
-
-.dropdown-item {
-  padding: 10px 15px;
-  color: black;
-  text-decoration: none;
-  display: block;
-  cursor: pointer;
-}
-
-.dropdown-item:hover {
-  background-color: #f1f1f1;
-  color: #007BFF;
-}
-
-.categoria-dropdown {
-  margin-top: 10px;
-  padding: 9px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 250px;
-  font-size: 14px;
- 
+.favorite-button:hover {
+  background-color: #FFC107; /* Fondo más oscuro al pasar */
 }

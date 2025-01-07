@@ -81,83 +81,84 @@ function Search() {
   };
 
   return (
-    <div id="root">
-      <h2>Buscador de CABYS de Hacienda</h2>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Ingrese código o nombre"
-          id="search-input"
-          onKeyPress={(e) =>
-            e.key === "Enter" && handleSearch(e.target.value.trim())
-          }
-        />
-        <button
-          id="search-button"
-          onClick={() => {
-            const input = document.getElementById("search-input").value.trim();
-            if (input) handleSearch(input);
-            else alert("Por favor, ingrese un criterio de búsqueda.");
-          }}
-        >
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
-        <button
-          id="favorites-button"
-          style={{ marginLeft: '10px' }}
-          onClick={toggleModal}
-        >
-          Favoritos
-        </button>
-        <Modal 
-          isOpen={isModalOpen} 
-          onClose={toggleModal} 
-          favorites={favorites} 
-          setFavorites={setFavorites} 
-          setResults={setResults} 
-        />
-      </div>
-      <div className="busquedacat">
-        <select
-          onChange={(e) => handleSearch(e.target.value)}
-          className="categoria-dropdown"
-        >
-          <option value="" disabled selected>
-            Categorias
-          </option>
-          {categorias.map((categoria, index) => (
-            <option key={index} value={categoria}>
-              {categoria}
+      <div id="root">
+        <h2>Buscador de CABYS de Hacienda</h2>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Ingrese código o nombre"
+            id="search-input"
+            style={{ marginTop: '20px' }}
+            onKeyPress={(e) =>
+              e.key === "Enter" && handleSearch(e.target.value.trim())
+            }
+          />
+          <button
+            id="search-button"
+            onClick={() => {
+              const input = document.getElementById("search-input").value.trim();
+              if (input) handleSearch(input);
+              else alert("Por favor, ingrese un criterio de búsqueda.");
+            }}
+          >
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+          <button
+            id="favorites-button"
+            style={{ marginLeft: '10px' }}
+            onClick={toggleModal}
+          >
+            Favoritos
+          </button>
+          <Modal 
+            isOpen={isModalOpen} 
+            onClose={toggleModal} 
+            favorites={favorites} 
+            setFavorites={setFavorites} 
+            setResults={setResults} 
+          />
+        </div>
+        <div className="busquedacat">
+          <select
+            onChange={(e) => handleSearch(e.target.value)}
+            className="categoria-dropdown"
+          >
+            <option value="" disabled selected>
+              Categorias
             </option>
-          ))}
-        </select>
-      </div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Descripción</th>
-            <th>Impuesto</th>
-          </tr>
-        </thead>
-        <tbody>
-          {results.map((item) => (
-            <tr key={item.codigo}>
-              <td>{item.codigo}</td>
-              <td>
-                <Link
-                  to={`/DetalleCabys/${item.descripcion}/param1/${item.impuesto}/param2/${item.codigo}/param3/${item.categorias}`}
-                  className="descripcion"
-                >
-                  {item.descripcion || "Descripción no disponible"}
-                </Link>
-              </td>
-              <td className="text-center">{item.impuesto}%</td>
+            {categorias.map((categoria, index) => (
+              <option key={index} value={categoria}>
+                {categoria}
+              </option>
+            ))}
+          </select>
+        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Descripción</th>
+              <th>Impuesto</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {results.map((item) => (
+              <tr key={item.codigo}>
+                <td>{item.codigo}</td>
+                <td>
+                  <Link
+                    to={`/DetalleCabys/${item.descripcion}/param1/${item.impuesto}/param2/${item.codigo}/param3/${item.categorias}`}
+                    className="descripcion"
+                  >
+                    {item.descripcion || "Descripción no disponible"}
+                  </Link>
+                </td>
+                <td className="text-center">{item.impuesto}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
   );
 }
 
