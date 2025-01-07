@@ -23,7 +23,7 @@ function App() {
       <div className="app-container">
         {useLocation().pathname === '/' ? (
           <Navbar />
-        ) : (useLocation().pathname !== '/logeo' && useLocation().pathname !== '/registro') ? (
+        ) : (useLocation().pathname !== '/logeo' && useLocation().pathname !== '/Registro' && useLocation().pathname !== '/') ? (
           <Sidebar changeContent={changeContent} />
         ) : null}
 

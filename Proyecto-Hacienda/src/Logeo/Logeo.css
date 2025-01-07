@@ -3,13 +3,3 @@ body {
   margin: 100px; /* Elimina el margen por defecto */
   overflow: hidden; /* Evita el scroll en el body */
 }
-
-.scroll-container {
-  width: 400px; /* Ancho fijo */
-  height: 200vh; /* Altura fija */
-  overflow: hidden; /* Evita el scroll */
-}
-
-.scroll-container::-webkit-scrollbar {
-  display: none; /* Oculta el scrollbar en navegadores WebKit */
-}
