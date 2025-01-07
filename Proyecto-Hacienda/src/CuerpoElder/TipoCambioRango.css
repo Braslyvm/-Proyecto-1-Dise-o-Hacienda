@@ -1,10 +1,4 @@
-/* Estilos para el contenedor general */
-div {
-  font-family: Arial, sans-serif;
-  background-color: #F5EFFF; /* Color de fondo claro para el contenedor */
-  padding: 20px;
-  border-radius: 8px;
-}
+
 
 /* Estilo para los inputs de tipo "date" */
 input[type="date"] {
