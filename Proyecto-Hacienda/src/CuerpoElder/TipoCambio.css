@@ -1,40 +1,46 @@
 /* Estilos para el contenedor del tipo de cambio */
 .tipo-cambio-container {
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 1200px; /* Mantener el ancho máximo */
+  margin: 120px auto 0; /* Margen superior para bajar el contenedor */
   padding: 2rem;
-  text-align: center;
-  border: 1px solid #E5D9F2;  /* Usando un color más suave de la paleta */
-  border-radius: 8px;
-  background-color: #F5EFFF;  /* Fondo suave y claro */
+  display: flex; /* Usar flexbox para alinear los contenedores horizontalmente */
+  justify-content: space-between; /* Espacio entre los contenedores */
+  gap: 2rem; /* Espacio entre los contenedores */
 }
 
 .tipo-cambio {
-  margin-bottom: 2rem;
+  flex: 1; /* Permitir que los contenedores crezcan igualmente */
+  padding: 2rem; /* Aumentar el padding interno para más espacio */
+  border: 1px solid #E5D9F2; /* Usar un borde suave */
+  border-radius: 8px;
+  background-color: #F5EFFF; /* Fondo suave y claro */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Aumentar la sombra para un efecto de elevación más pronunciado */
+  margin-bottom: 20px; /* Añadir margen inferior para separar los contenedores */
 }
 
 .tipo-cambio h3 {
   margin-bottom: 1rem;
-  color: #6B52F2;  /* Oscurecido para mejorar la visibilidad */
+  color: #6B52F2; /* Oscurecido para mejorar la visibilidad */
   font-weight: bold;
+  font-size: 2rem; /* Aumentar el tamaño de la fuente del título */
 }
 
 .tipo-cambio p {
   margin: 0.5rem 0;
-  font-size: 1rem;
-  color: #333;  /* Color oscuro para el texto principal */
+  font-size: 1.2rem; /* Aumentar el tamaño de la fuente del texto */
+  color: #333; /* Color oscuro para el texto principal */
 }
 
 .tipo-cambio p b {
-  color: #5E4AB6;  /* Un tono de morado más oscuro para el texto en negrita */
+  color: #5E4AB6; /* Un tono de morado más oscuro para el texto en negrita */
 }
 
 .tipo-cambio button {
-  background-color: #6B52F2;  /* Color oscuro para el botón */
+  background-color: #6B52F2; /* Color oscuro para el botón */
   color: white;
   border: none;
-  padding: 12px 24px;
-  font-size: 16px;
+  padding: 14px 28px; /* Aumentar el padding del botón */
+  font-size: 18px; /* Aumentar el tamaño de la fuente del botón */
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
@@ -42,7 +48,7 @@
 }
 
 .tipo-cambio button:hover {
-  background-color: #CDC1FF;  /* Color más claro en hover */
+  background-color: #CDC1FF; /* Color más claro en hover */
   transform: scale(1.05);
 }
 
