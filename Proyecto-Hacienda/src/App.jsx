@@ -36,7 +36,6 @@ function App() {
             <Route path="/logeo" element={<Logeo />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/Navbar" element={<Navbar />} />
-          
             <Route
               path="/app"
               element={<MainContent content={content} />}
