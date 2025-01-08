@@ -17,7 +17,7 @@ import ManejoErrores from './ManejoErrores';
 import { useAuth } from './Lectura'; 
 
 export default function Logeo() {
-  const { setEmail } = useAuth(); // Obtén la función para establecer el correo
+  const { setEmail } = useAuth(); 
   const [email, setEmailLocal] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -30,8 +30,6 @@ export default function Logeo() {
         .then((userCredential) => {
           setEmail(email); 
           const user = userCredential.user;
-          
-          
           navigate('/app'); // Redirigir a la página principal después de iniciar sesión
         })
         .catch((error) => {
