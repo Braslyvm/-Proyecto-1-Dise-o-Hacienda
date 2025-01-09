@@ -77,6 +77,7 @@ function DetalleCabys({ changeContent }) {
           </tr>
         </tbody>
       </table>
+      <div className="header-container"></div>
       <button
         className={`add-favorite ${favorito ? "favorito" : ""}`}
         onClick={handleFavoriteClick}
