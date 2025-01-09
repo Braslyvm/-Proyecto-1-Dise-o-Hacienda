@@ -12,7 +12,7 @@ import { AuthProvider } from "./Logeo/Lectura";
 import "./App.css";
 import TranslateComponent from "./CuerpoElder/translate";
 import Ajustes from "./CuerpoElder/Ajustes";
-
+import Search from "./CuerpoElder/Search";
 function App() {
   const [content, setContent] = useState("default");
 
@@ -44,6 +44,7 @@ function App() {
               <Route path="/translate" element={<TranslateComponent />} />
               <Route path="/ajustes" element={<Ajustes />} />
               <Route path="/app" element={<MainContent content={content} />} />
+              <Route path="/search" element={<Search />} />
             </Routes>
           </main>
         </div>

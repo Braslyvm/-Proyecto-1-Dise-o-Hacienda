@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Importar hooks adicionales
 import "./Search.css";
 import Modal from "./Favoritos";
 import { getDocumentsByEmail } from "../Logeo/Autentificacion";
@@ -15,6 +15,7 @@ function Search() {
   const [results, setResults] = useState([]);
   const [resultsEspanol, setResultsEspanol] = useState([]);
   const { translate } = useGlobalContext();
+  const [searchInput, setSearchInput] = useState("");
   const [translatedContent, setTranslatedContent] = useState({
     busquedaCabys: "Buscador de CABYS de Hacienda",
     ingreseCodigoONombre: "Ingrese código o nombre",
@@ -26,6 +27,9 @@ function Search() {
 
   const { email } = useAuth();
   const userCorreo = email;
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const categorias = [
     "Productos agrícolas y alimenticios",
     "Productos químicos",
@@ -45,51 +49,11 @@ function Search() {
   ];
 
   useEffect(() => {
-    const translateContent = async () => {
-      if (translate) {
-        const busquedaCabys = await translateText(
-          "Buscador de CABYS de Hacienda",
-          "es",
-          "en"
-        );
-        const ingreseCodigoONombre = await translateText(
-          "Ingrese código o nombre",
-          "es",
-          "en"
-        );
-        const favoritos = await translateText("Favoritos", "es", "en");
-        const codigo = await translateText("Código", "es", "en");
-        const descripcion = await translateText("Descripción", "es", "en");
-        const impuesto = await translateText("Impuesto", "es", "en");
-
-        setTranslatedContent({
-          busquedaCabys,
-          ingreseCodigoONombre,
-          favoritos,
-          codigo,
-          descripcion,
-          impuesto,
-        });
-
-        const translatedResults = await Promise.all(
-          results.map(async (item) => {
-            const descripcion = await translateText(
-              item.descripcion,
-              "es",
-              "en"
-            );
-            const codigo = item.codigo;
-            const impuesto = item.impuesto;
-            return { ...item, descripcion, codigo, impuesto };
-          })
-        );
-
-        setResults(translatedResults);
-      }
-    };
-
-    translateContent();
-  }, [translate]);
+    if (location.state?.lastSearch) {
+      setSearchInput(location.state.lastSearch);
+      handleSearch(location.state.lastSearch);
+    }
+  }, [location.state]);
 
   const fetchFavorites = async () => {
     const favoritos = await getDocumentsByEmail(userCorreo);
@@ -112,6 +76,7 @@ function Search() {
 
   const handleSearch = async (nombreOCodigo) => {
     const esCodigo = /^\d+$/.test(nombreOCodigo);
+
     if (translate) {
       nombreOCodigo = await translateText(nombreOCodigo, "en", "es");
     }
@@ -135,7 +100,6 @@ function Search() {
 
       setResultsEspanol(data.cabys);
       setResults(data.cabys);
-      setTempJSON({ busqueda: data.cabys });
     } catch (error) {
       alert("Error al realizar la solicitud.");
       console.error(error);
@@ -151,6 +115,8 @@ function Search() {
           placeholder={translatedContent.ingreseCodigoONombre}
           id="search-input"
           style={{ marginTop: "20px" }}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           onKeyPress={(e) =>
             e.key === "Enter" && handleSearch(e.target.value.trim())
           }
@@ -158,8 +124,7 @@ function Search() {
         <button
           id="search-button"
           onClick={() => {
-            const input = document.getElementById("search-input").value.trim();
-            if (input) handleSearch(input);
+            if (searchInput) handleSearch(searchInput.trim());
             else alert("Por favor, ingrese un criterio de búsqueda.");
           }}
         >
@@ -182,7 +147,12 @@ function Search() {
       </div>
       <div className="busquedacat">
         <select
-          onChange={(e) => handleSearch(e.target.value)}
+          onChange={(e) => {
+            const categoriaSeleccionada = e.target.value;
+            setSearchInput(categoriaSeleccionada); // Actualiza el valor del input
+            handleSearch(categoriaSeleccionada); // Realiza la búsqueda
+          }}
+          value={searchInput || ""} // Sincroniza el valor del dropdown con el input
           className="categoria-dropdown"
         >
           <option value="" disabled selected>
@@ -210,6 +180,7 @@ function Search() {
               <td>
                 <Link
                   to={`/DetalleCabys/${resultsEspanol[index].descripcion}/param1/${resultsEspanol[index].impuesto}/param2/${resultsEspanol[index].codigo}/param3/${resultsEspanol[index].categorias}`}
+                  state={{ lastSearch: searchInput }}
                   className="descripcion"
                 >
                   {item.descripcion || "Descripción no disponible"}
