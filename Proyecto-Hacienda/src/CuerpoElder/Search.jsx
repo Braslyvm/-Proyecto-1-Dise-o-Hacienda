@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Search.css";
-import Modal from './Favoritos'; 
-import { getDocumentsByEmail } from '../Logeo/Autentificacion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from '../Logeo/Lectura';
+import Modal from "./Favoritos";
+import { getDocumentsByEmail } from "../Logeo/Autentificacion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../Logeo/Lectura";
 import { useGlobalContext } from "../CuerpoElder/GlobalContext";
-import translateText from '../CuerpoElder/translate';
+import translateText from "../CuerpoElder/translate";
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState([]); 
+  const [favorites, setFavorites] = useState([]);
   const [results, setResults] = useState([]);
   const [resultsEspanol, setResultsEspanol] = useState([]);
-  const {translate} = useGlobalContext();
+  const { translate } = useGlobalContext();
   const [translatedContent, setTranslatedContent] = useState({
-    busquedaCabys : 'Buscador de CABYS de Hacienda',
-    ingreseCodigoONombre : 'Ingrese código o nombre',
-    favoritos : 'Favoritos',
-    codigo : 'Código',
-    descripcion : 'Descripción',
-    impuesto : 'Impuesto',
+    busquedaCabys: "Buscador de CABYS de Hacienda",
+    ingreseCodigoONombre: "Ingrese código o nombre",
+    favoritos: "Favoritos",
+    codigo: "Código",
+    descripcion: "Descripción",
+    impuesto: "Impuesto",
   });
 
-  const { email } = useAuth(); 
+  const { email } = useAuth();
   const userCorreo = email;
   const categorias = [
     "Productos agrícolas y alimenticios",
@@ -47,33 +47,47 @@ function Search() {
   useEffect(() => {
     const translateContent = async () => {
       if (translate) {
-        const busquedaCabys = await translateText('Buscador de CABYS de Hacienda', 'es', 'en');
-        const ingreseCodigoONombre = await translateText('Ingrese código o nombre', 'es', 'en');
-        const favoritos = await translateText('Favoritos', 'es', 'en');
-        const codigo = await translateText('Código', 'es', 'en');
-        const descripcion =  await translateText('Descripción', 'es', 'en');
-        const impuesto =  await translateText('Impuesto', 'es', 'en');
-  
+        const busquedaCabys = await translateText(
+          "Buscador de CABYS de Hacienda",
+          "es",
+          "en"
+        );
+        const ingreseCodigoONombre = await translateText(
+          "Ingrese código o nombre",
+          "es",
+          "en"
+        );
+        const favoritos = await translateText("Favoritos", "es", "en");
+        const codigo = await translateText("Código", "es", "en");
+        const descripcion = await translateText("Descripción", "es", "en");
+        const impuesto = await translateText("Impuesto", "es", "en");
+
         setTranslatedContent({
           busquedaCabys,
           ingreseCodigoONombre,
           favoritos,
           codigo,
           descripcion,
-          impuesto
+          impuesto,
         });
-  
-        const translatedResults = await Promise.all(results.map(async (item) => {
-          const descripcion = await translateText(item.descripcion, 'es', 'en');
-          const codigo = item.codigo;
-          const impuesto = item.impuesto;
-          return { ...item, descripcion, codigo, impuesto };
-        }));
-  
+
+        const translatedResults = await Promise.all(
+          results.map(async (item) => {
+            const descripcion = await translateText(
+              item.descripcion,
+              "es",
+              "en"
+            );
+            const codigo = item.codigo;
+            const impuesto = item.impuesto;
+            return { ...item, descripcion, codigo, impuesto };
+          })
+        );
+
         setResults(translatedResults);
       }
     };
-  
+
     translateContent();
   }, [translate]);
 
@@ -98,8 +112,8 @@ function Search() {
 
   const handleSearch = async (nombreOCodigo) => {
     const esCodigo = /^\d+$/.test(nombreOCodigo);
-    if(translate){
-      nombreOCodigo=await translateText(nombreOCodigo, 'en', 'es');
+    if (translate) {
+      nombreOCodigo = await translateText(nombreOCodigo, "en", "es");
     }
     const apiUrl = esCodigo
       ? `https://api.hacienda.go.cr/fe/cabys?codigo=${encodeURIComponent(
@@ -128,7 +142,6 @@ function Search() {
     }
   };
 
-
   return (
     <div id="root">
       <h2>{translatedContent.busquedaCabys}</h2>
@@ -137,8 +150,10 @@ function Search() {
           type="text"
           placeholder={translatedContent.ingreseCodigoONombre}
           id="search-input"
-          style={{ marginTop: '20px' }}
-          onKeyPress={(e) => e.key === "Enter" && handleSearch(e.target.value.trim())}
+          style={{ marginTop: "20px" }}
+          onKeyPress={(e) =>
+            e.key === "Enter" && handleSearch(e.target.value.trim())
+          }
         />
         <button
           id="search-button"
@@ -152,7 +167,7 @@ function Search() {
         </button>
         <button
           id="favorites-button"
-          style={{ marginLeft: '10px' }}
+          style={{ marginLeft: "10px" }}
           onClick={toggleModal}
         >
           {translatedContent.favoritos}

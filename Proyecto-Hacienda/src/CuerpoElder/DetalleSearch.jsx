@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Importa useNavigate
-import { useAuth } from '../Logeo/Lectura';
+import { useAuth } from "../Logeo/Lectura";
 import "./DetalleSearch.css";
+import handleSearch from "../CuerpoElder/Search";
 import {
   setData,
   deleteByEmailAndCode,
@@ -9,7 +10,7 @@ import {
 } from "../Logeo/Autentificacion";
 
 function DetalleCabys({ changeContent }) {
-  const { email } = useAuth(); 
+  const { email } = useAuth();
   const usuario = email;
   const { descripcion, param1, param2, param3 } = useParams();
   const navigate = useNavigate(); // Hook para navegar
@@ -46,6 +47,10 @@ function DetalleCabys({ changeContent }) {
     setValor(nuevoFavorito);
   };
 
+  const back = () => {
+    navigate(-1); // Navega hacia atrás en el historial
+  };
+
   return (
     <div>
       <h1>{descripcion}</h1>
@@ -79,7 +84,7 @@ function DetalleCabys({ changeContent }) {
         {favorito ? "★" : "☆"}
       </button>
       {/* Botón para volver atrás */}
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="back-button" onClick={back}>
         Volver atrás
       </button>
     </div>
