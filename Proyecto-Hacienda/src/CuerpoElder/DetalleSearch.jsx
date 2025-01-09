@@ -8,7 +8,7 @@ import {
   exists,
 } from "../Logeo/Autentificacion";
 
-function DetalleCabys() {
+function DetalleCabys({ changeContent }) {
   const { email } = useAuth(); 
   const usuario = email;
   const { descripcion, param1, param2, param3 } = useParams();

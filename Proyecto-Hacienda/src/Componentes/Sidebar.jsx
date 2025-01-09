@@ -12,8 +12,14 @@ function Sidebar({ changeContent }) {
     buscador: 'Buscador',
     tipoCambio: 'Tipo de cambio',
     comportamientoDolar: 'Comportamiento del dólar',
+    ajustes: 'Ajustes',
     cerrarSesion: 'Cerrar Sesión'
   });
+
+  const handleNavigation = (section) => {
+    changeContent(section); // Cambia el contenido mostrado.
+    navigate("/app"); // Navega de vuelta al contenido principal.
+  };
 
   useEffect(() => {
     const translateContent = async () => {
@@ -46,7 +52,7 @@ function Sidebar({ changeContent }) {
     };
 
     translateContent();
-  }, [translate]); // Asegúrate de que el efecto se ejecute cuando `translate` cambie
+  }, [translate]);
 
   const handleHomeRedirect = () => {
     navigate("/");
@@ -56,10 +62,10 @@ function Sidebar({ changeContent }) {
     <div className="sidebar">
       <h2>{translatedContent.menu}</h2>
       <ul>
-        <li><a href="#" onClick={() => changeContent('section1')}>{translatedContent.buscador}</a></li>
-        <li><a href="#" onClick={() => changeContent('section2')}>{translatedContent.tipoCambio}</a></li>
-        <li><a href="#" onClick={() => changeContent('section3')}>{translatedContent.comportamientoDolar}</a></li>
-        <li><a href="#" onClick={() => changeContent('section4')}>{translatedContent.ajustes}</a></li>
+        <li><a href="#" onClick={() => handleNavigation("section1")}>{translatedContent.buscador}</a></li>
+        <li><a href="#" onClick={() => handleNavigation('section2')}>{translatedContent.tipoCambio}</a></li>
+        <li><a href="#" onClick={() => handleNavigation('section3')}>{translatedContent.comportamientoDolar}</a></li>
+        <li><a href="#" onClick={() => handleNavigation('section4')}>{translatedContent.ajustes}</a></li>
       </ul>
       <button onClick={handleHomeRedirect}>{translatedContent.cerrarSesion}</button>
     </div>
