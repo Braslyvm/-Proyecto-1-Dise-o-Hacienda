@@ -10,14 +10,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { app } from './Autentificacion'; // Asegúrate de que este archivo esté configurado correctamente
+import { app } from './Autentificacion'; 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import ManejoErrores from './ManejoErrores';
 import { useAuth } from './Lectura'; 
 
 export default function Logeo() {
-  const { setEmail } = useAuth(); // Obtén la función para establecer el correo
+  const { setEmail } = useAuth(); 
   const [email, setEmailLocal] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -30,8 +30,6 @@ export default function Logeo() {
         .then((userCredential) => {
           setEmail(email); 
           const user = userCredential.user;
-          
-          
           navigate('/app'); // Redirigir a la página principal después de iniciar sesión
         })
         .catch((error) => {

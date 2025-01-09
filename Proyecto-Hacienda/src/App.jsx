@@ -7,8 +7,11 @@ import Navbar from "./Componentes/Navbar";
 import Logeo from "./Logeo/Logeo";
 import Registro from "./Logeo/Registro";
 import DetalleCabys from "./CuerpoElder/DetalleSearch";
+import {GlobalProvider} from "./CuerpoElder/GlobalContext";
 import { AuthProvider } from './Logeo/Lectura';
 import "./App.css";
+import TranslateComponent from './CuerpoElder/translate';
+import Ajustes from './CuerpoElder/Ajustes'
 
 function App() {
   const [content, setContent] = useState("default");
@@ -19,6 +22,7 @@ function App() {
   };
 
   return (
+    <GlobalProvider>
     <AuthProvider>
       <div className="app-container">
         {useLocation().pathname === '/' ? (
@@ -36,7 +40,8 @@ function App() {
             <Route path="/logeo" element={<Logeo />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/Navbar" element={<Navbar />} />
-          
+            <Route path="/translate" element={<TranslateComponent />} />
+            <Route path="/ajustes" element={<Ajustes />} />
             <Route
               path="/app"
               element={<MainContent content={content} />}
@@ -45,6 +50,7 @@ function App() {
         </main>
       </div>
     </AuthProvider>
+    </GlobalProvider>
   );
 }
 const AppWithRouter = () => (

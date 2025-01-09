@@ -6,12 +6,23 @@ import { getDocumentsByEmail } from '../Logeo/Autentificacion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../Logeo/Lectura';
+import { useGlobalContext } from "../CuerpoElder/GlobalContext";
+import translateText from '../CuerpoElder/translate';
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [favorites, setFavorites] = useState([]); 
   const [results, setResults] = useState([]);
-  const [tempJSON, setTempJSON] = useState({});
+  const [resultsEspanol, setResultsEspanol] = useState([]);
+  const {translate} = useGlobalContext();
+  const [translatedContent, setTranslatedContent] = useState({
+    busquedaCabys : 'Buscador de CABYS de Hacienda',
+    ingreseCodigoONombre : 'Ingrese código o nombre',
+    favoritos : 'Favoritos',
+    codigo : 'Código',
+    descripcion : 'Descripción',
+    impuesto : 'Impuesto',
+  });
 
   const { email } = useAuth(); 
   const userCorreo = email;
@@ -32,6 +43,39 @@ function Search() {
     "Electrodomésticos y equipos eléctricos",
     "Servicios relacionados (como transporte, seguros, etc.)",
   ];
+
+  useEffect(() => {
+    const translateContent = async () => {
+      if (translate) {
+        const busquedaCabys = await translateText('Buscador de CABYS de Hacienda', 'es', 'en');
+        const ingreseCodigoONombre = await translateText('Ingrese código o nombre', 'es', 'en');
+        const favoritos = await translateText('Favoritos', 'es', 'en');
+        const codigo = await translateText('Código', 'es', 'en');
+        const descripcion =  await translateText('Descripción', 'es', 'en');
+        const impuesto =  await translateText('Impuesto', 'es', 'en');
+  
+        setTranslatedContent({
+          busquedaCabys,
+          ingreseCodigoONombre,
+          favoritos,
+          codigo,
+          descripcion,
+          impuesto
+        });
+  
+        const translatedResults = await Promise.all(results.map(async (item) => {
+          const descripcion = await translateText(item.descripcion, 'es', 'en');
+          const codigo = item.codigo;
+          const impuesto = item.impuesto;
+          return { ...item, descripcion, codigo, impuesto };
+        }));
+  
+        setResults(translatedResults);
+      }
+    };
+  
+    translateContent();
+  }, [translate]);
 
   const fetchFavorites = async () => {
     const favoritos = await getDocumentsByEmail(userCorreo);
@@ -54,6 +98,9 @@ function Search() {
 
   const handleSearch = async (nombreOCodigo) => {
     const esCodigo = /^\d+$/.test(nombreOCodigo);
+    if(translate){
+      nombreOCodigo=await translateText(nombreOCodigo, 'en', 'es');
+    }
     const apiUrl = esCodigo
       ? `https://api.hacienda.go.cr/fe/cabys?codigo=${encodeURIComponent(
           nombreOCodigo
@@ -72,6 +119,7 @@ function Search() {
         return;
       }
 
+      setResultsEspanol(data.cabys);
       setResults(data.cabys);
       setTempJSON({ busqueda: data.cabys });
     } catch (error) {
@@ -80,85 +128,84 @@ function Search() {
     }
   };
 
+
   return (
-      <div id="root">
-        <h2>Buscador de CABYS de Hacienda</h2>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Ingrese código o nombre"
-            id="search-input"
-            style={{ marginTop: '20px' }}
-            onKeyPress={(e) =>
-              e.key === "Enter" && handleSearch(e.target.value.trim())
-            }
-          />
-          <button
-            id="search-button"
-            onClick={() => {
-              const input = document.getElementById("search-input").value.trim();
-              if (input) handleSearch(input);
-              else alert("Por favor, ingrese un criterio de búsqueda.");
-            }}
-          >
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
-          <button
-            id="favorites-button"
-            style={{ marginLeft: '10px' }}
-            onClick={toggleModal}
-          >
-            Favoritos
-          </button>
-          <Modal 
-            isOpen={isModalOpen} 
-            onClose={toggleModal} 
-            favorites={favorites} 
-            setFavorites={setFavorites} 
-            setResults={setResults} 
-          />
-        </div>
-        <div className="busquedacat">
-          <select
-            onChange={(e) => handleSearch(e.target.value)}
-            className="categoria-dropdown"
-          >
-            <option value="" disabled selected>
-              Categorias
-            </option>
-            {categorias.map((categoria, index) => (
-              <option key={index} value={categoria}>
-                {categoria}
-              </option>
-            ))}
-          </select>
-        </div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Descripción</th>
-              <th>Impuesto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map((item) => (
-              <tr key={item.codigo}>
-                <td>{item.codigo}</td>
-                <td>
-                  <Link
-                    to={`/DetalleCabys/${item.descripcion}/param1/${item.impuesto}/param2/${item.codigo}/param3/${item.categorias}`}
-                    className="descripcion"
-                  >
-                    {item.descripcion || "Descripción no disponible"}
-                  </Link>
-                </td>
-                <td className="text-center">{item.impuesto}%</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div id="root">
+      <h2>{translatedContent.busquedaCabys}</h2>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder={translatedContent.ingreseCodigoONombre}
+          id="search-input"
+          style={{ marginTop: '20px' }}
+          onKeyPress={(e) => e.key === "Enter" && handleSearch(e.target.value.trim())}
+        />
+        <button
+          id="search-button"
+          onClick={() => {
+            const input = document.getElementById("search-input").value.trim();
+            if (input) handleSearch(input);
+            else alert("Por favor, ingrese un criterio de búsqueda.");
+          }}
+        >
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
+        <button
+          id="favorites-button"
+          style={{ marginLeft: '10px' }}
+          onClick={toggleModal}
+        >
+          {translatedContent.favoritos}
+        </button>
+        <Modal
+          isOpen={isModalOpen}
+          onClose={toggleModal}
+          favorites={favorites}
+          setFavorites={setFavorites}
+          setResults={setResults}
+        />
       </div>
+      <div className="busquedacat">
+        <select
+          onChange={(e) => handleSearch(e.target.value)}
+          className="categoria-dropdown"
+        >
+          <option value="" disabled selected>
+            Categorias
+          </option>
+          {categorias.map((categoria, index) => (
+            <option key={index} value={categoria}>
+              {categoria}
+            </option>
+          ))}
+        </select>
+      </div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>{translatedContent.codigo}</th>
+            <th>{translatedContent.descripcion}</th>
+            <th>{translatedContent.impuesto}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {results.map((item, index) => (
+            <tr key={item.codigo}>
+              <td>{item.codigo}</td>
+              <td>
+                <Link
+                  to={`/DetalleCabys/${resultsEspanol[index].descripcion}/param1/${resultsEspanol[index].impuesto}/param2/${resultsEspanol[index].codigo}/param3/${resultsEspanol[index].categorias}`}
+                  className="descripcion"
+                >
+                  {item.descripcion || "Descripción no disponible"}
+                </Link>
+              </td>
+              <td className="text-center">{item.impuesto}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
