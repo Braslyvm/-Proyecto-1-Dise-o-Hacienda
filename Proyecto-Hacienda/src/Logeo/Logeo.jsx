@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,7 +7,6 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { app } from './Autentificacion'; 
@@ -15,6 +14,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import ManejoErrores from './ManejoErrores';
 import { useAuth } from './Lectura'; 
+import translateText from '../CuerpoElder/translate';
+import { useGlobalContext } from '../CuerpoElder/GlobalContext';
 
 export default function Logeo() {
   const { setEmail } = useAuth(); 
@@ -22,6 +23,43 @@ export default function Logeo() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [error, setError] = useState('');
+
+  const [translatedContent, setTranslatedContent] = useState({
+    iniciarSesion: 'Iniciar Sesión',
+    correoElectronico: 'Correo Electrónico',
+    contrasena: 'Contraseña',
+    iniciarSesionButton: 'Iniciar Sesión',
+    noCuenta: '¿No tienes una cuenta? Regístrate',
+    errorCorreoContrasena: 'El correo o la contraseña es incorrecta',
+    errorIngresar: 'Por favor, ingresa tu correo y contraseña'
+  });
+
+  const { translate } = useGlobalContext();
+
+  useEffect(() => {
+    const translateContent = async () => {
+      if (translate) {
+        const iniciarSesion = 'Log in';
+        const correoElectronico = await translateText('Correo Electrónico', 'es', 'en');
+        const contrasena = await translateText('Contraseña', 'es', 'en');
+        const iniciarSesionButton = await translateText('Iniciar Sesión', 'es', 'en');
+        const noCuenta = await translateText('¿No tienes una cuenta? Regístrate', 'es', 'en');
+        const errorCorreoContrasena = await translateText('El correo o la contraseña es incorrecta', 'es', 'en');
+        const errorIngresar = await translateText('Por favor, ingresa tu correo y contraseña', 'es', 'en');
+        setTranslatedContent({
+          iniciarSesion,
+          correoElectronico,
+          contrasena,
+          iniciarSesionButton,
+          noCuenta,
+          errorCorreoContrasena,
+          errorIngresar
+        });
+      }
+    };
+
+    translateContent();
+  }, [translate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,10 +71,10 @@ export default function Logeo() {
           navigate('/app'); // Redirigir a la página principal después de iniciar sesión
         })
         .catch((error) => {
-          setError('El correo o la contraseña es incorrecta');
+          setError(translatedContent.errorCorreoContrasena);
         });
     } else {
-      setError('Por favor, ingresa tu correo y contraseña');
+      setError(translatedContent.errorIngresar);
     }
   };
 
@@ -58,7 +96,7 @@ export default function Logeo() {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Iniciar Sesión
+        {translatedContent.iniciarSesion}
       </Typography>
       {error && <Typography color="error" variant="body2" sx={{ mt: 2 }}>{error}</Typography>} 
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%', maxWidth: '400px' }}>
@@ -68,7 +106,7 @@ export default function Logeo() {
           required
           fullWidth
           id="email"
-          label="Correo Electrónico"
+          label={translatedContent.correoElectronico}
           name="email"
           autoComplete="email"
           autoFocus
@@ -81,7 +119,7 @@ export default function Logeo() {
           required
           fullWidth
           name="password"
-          label="Contraseña"
+          label={translatedContent.contrasena}
           type="password"
           id="password"
           autoComplete="current-password"
@@ -95,12 +133,12 @@ export default function Logeo() {
           color="primary"
           sx={{ mt: 3, mb: 2 }}
         >
-          Iniciar Sesión
+          {translatedContent.iniciarSesionButton}
         </Button>
         <Grid container justifyContent="center" alignItems="center">
           <Grid item>
             <Link href="/Registro" variant="body2">
-              {"¿No tienes una cuenta? Regístrate"}
+              {translatedContent.noCuenta}
             </Link>
           </Grid>
         </Grid>

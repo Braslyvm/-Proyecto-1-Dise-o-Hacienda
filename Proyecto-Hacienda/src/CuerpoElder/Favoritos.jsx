@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'; 
 import { Link } from 'react-router-dom'; 
 import './Favorito.css';
@@ -7,8 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { deleteByEmailAndCode } from '../Logeo/Autentificacion';
 import { useAuth } from '../Logeo/Lectura';
-
-
+import translateText from '../CuerpoElder/translate';
+import { useGlobalContext } from '../CuerpoElder/GlobalContext';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -20,11 +20,49 @@ const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => {
   const { email } = useAuth(); 
   const usuario = email;
   const classes = useStyles(); 
+  const [results, setResultsE] = useState([]);
 
-  /**
-   * Funcion que que borra el producto favorito de la base de datos
-   * @param {*} codigo 
-   */
+  const { translate } = useGlobalContext();
+  const [translatedFavorites, setTranslatedFavorites] = useState({
+    listaFav: 'Lista de Favoritos',
+    codigo: 'Código',
+    descripcion: 'Descripción',
+    accion: 'Acción',
+    nofav: 'No hay favoritos',
+    cerrar: 'Cerrar'
+  });
+
+  useEffect(() => {
+    const translateFavorites = async () => {
+      if (translate) {
+        const listaFav = await translateText("Lista de Favoritos", 'es', 'en');
+        const codigo = await translateText('Código', 'es', 'en');
+        const descripcion = await translateText('Descripción', 'es', 'en');
+        const accion = await translateText('Acción', 'es', 'en');
+        const nofav = await translateText('No hay favoritos', 'es', 'en');
+        const cerrar = await translateText('Cerrar', 'es', 'en');
+        setTranslatedFavorites({
+          listaFav,
+          codigo,
+          descripcion,
+          accion,
+          nofav,
+          cerrar
+        });
+
+        const translatedCABYS = await Promise.all(favorites.map(async (item) => {
+          const descripcion = await translateText(item.Descripcion, 'es', 'en');
+          return { ...item, Descripcion: descripcion };
+        }));
+        setResultsE(translatedCABYS);
+      } else {
+        setResultsE(favorites);
+      }
+    };
+
+    translateFavorites();
+  }, [translate, favorites]);
+
   const borrar = async (codigo) => {
     try {
       await deleteByEmailAndCode(usuario, codigo);
@@ -41,19 +79,19 @@ const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Lista de Favoritos</h2>
+        <h2>{translatedFavorites.listaFav}</h2>
         <div className="favorites-list">
-          {favorites.length > 0 ? (
+          {results.length > 0 ? (
             <table className="favorites-table">
               <thead>
                 <tr>
-                  <th>Código</th>
-                  <th>Descripción</th>
-                  <th>Acción</th>
+                  <th>{translatedFavorites.codigo}</th>
+                  <th>{translatedFavorites.descripcion}</th>
+                  <th>{translatedFavorites.accion}</th>
                 </tr>
               </thead>
               <tbody>
-                {favorites.map((item, index) => (
+                {results.map((item, index) => (
                   <tr key={index}>
                     <td className="code-cell">{item.Codigo || "Sin código"}</td>
                     <td className="description-cell">
@@ -61,7 +99,7 @@ const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => {
                         to={`/DetalleCabys/${item.Descripcion}/param1/${item.Impuesto}/param2/${item.Codigo}/param3/${item.Categoria}`}
                         className="descripcion"
                       >
-                        {item.Descripcion || "Sin descripción"}
+                        {item.Descripcion}
                       </Link>
                     </td>
                     <td className="action-cell">
@@ -78,10 +116,10 @@ const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => {
               </tbody>
             </table>
           ) : (
-            <div className="no-favorites">No hay favoritos</div>
+            <div className="no-favorites">{translatedFavorites.nofav}</div>
           )}
         </div>
-        <button onClick={onClose} className="close-button">Cerrar</button>
+        <button onClick={onClose} className="close-button">{translatedFavorites.cerrar}</button>
       </div>
     </div>
   );

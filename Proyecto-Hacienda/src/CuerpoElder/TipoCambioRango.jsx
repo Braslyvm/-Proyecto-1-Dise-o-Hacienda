@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import "./TipoCambioRango.css";
+import translateText from '../CuerpoElder/translate';
+import { useGlobalContext } from '../CuerpoElder/GlobalContext';
 
 const TipoCambioRango = () => {
   const [activeSection, setActiveSection] = useState("rango");
@@ -9,6 +11,64 @@ const TipoCambioRango = () => {
   const [endDate, setEndDate] = useState("");
   const [specificDate, setSpecificDate] = useState("");
   const [chartData, setChartData] = useState(null);
+
+  const [translatedContent, setTranslatedContent] = useState({
+    comportamientoDolar: 'Comportamiento del Tipo de Cambio del Dólar',
+    consultaRango: 'Consulta por rango',
+    consultaFechaEspecifica: 'Consulta desde fecha específica',
+    consultaRangoFechas: 'Consulta por rango de fechas',
+    fechaInicio: 'Fecha de inicio',
+    fechaFin: 'Fecha de fin',
+    generarGrafico: 'Generar gráfico',
+    consultaDesdeFecha: 'Consulta desde una fecha específica hasta hoy',
+    fechaEspecifica: 'Fecha específica',
+    seleccionaOpciones: 'Selecciona opciones para generar el gráfico.',
+    compra: 'Compra (₡)',
+    venta: 'Venta (₡)',
+    fecha: 'Fecha',
+    colones: '₡ (Colones)'
+  });
+
+  const { translate } = useGlobalContext();
+
+  useEffect(() => {
+    const translateContent = async () => {
+      if (translate) {
+        const comportamientoDolar = await translateText('Comportamiento del Tipo de Cambio del Dólar', 'es', 'en');
+        const consultaRango = await translateText('Consulta por rango', 'es', 'en');
+        const consultaFechaEspecifica = await translateText('Consulta desde fecha específica', 'es', 'en');
+        const consultaRangoFechas = await translateText('Consulta por rango de fechas', 'es', 'en');
+        const fechaInicio = await translateText('Fecha de inicio', 'es', 'en');
+        const fechaFin = await translateText('Fecha de fin', 'es', 'en');
+        const generarGrafico = await translateText('Generar gráfico', 'es', 'en');
+        const consultaDesdeFecha = await translateText('Consulta desde una fecha específica hasta hoy', 'es', 'en');
+        const fechaEspecifica = await translateText('Fecha específica', 'es', 'en');
+        const seleccionaOpciones = await translateText('Selecciona opciones para generar el gráfico.', 'es', 'en');
+        const compra = await translateText('Compra (₡)', 'es', 'en');
+        const venta = await translateText('Venta (₡)', 'es', 'en');
+        const fecha = await translateText('Fecha', 'es', 'en');
+        const colones = await translateText('₡ (Colones)', 'es', 'en');
+        setTranslatedContent({
+          comportamientoDolar,
+          consultaRango,
+          consultaFechaEspecifica,
+          consultaRangoFechas,
+          fechaInicio,
+          fechaFin,
+          generarGrafico,
+          consultaDesdeFecha,
+          fechaEspecifica,
+          seleccionaOpciones,
+          compra,
+          venta,
+          fecha,
+          colones
+        });
+      }
+    };
+
+    translateContent();
+  }, [translate]);
 
   const handleFetchDataRange = async () => {
     if (!startDate || !endDate) {
@@ -43,14 +103,14 @@ const TipoCambioRango = () => {
         labels: dates,
         datasets: [
           {
-            label: "Compra (₡)",
+            label: translatedContent.compra,
             data: compraValues,
             borderColor: "rgba(75, 192, 192, 1)",
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             fill: true,
           },
           {
-            label: "Venta (₡)",
+            label: translatedContent.venta,
             data: ventaValues,
             borderColor: "rgba(255, 99, 132, 1)",
             backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -99,14 +159,14 @@ const TipoCambioRango = () => {
         labels: dates,
         datasets: [
           {
-            label: "Compra (₡)",
+            label: translatedContent.compra,
             data: compraValues,
             borderColor: "rgba(75, 192, 192, 1)",
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             fill: true,
           },
           {
-            label: "Venta (₡)",
+            label: translatedContent.venta,
             data: ventaValues,
             borderColor: "rgba(255, 99, 132, 1)",
             backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -122,7 +182,7 @@ const TipoCambioRango = () => {
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "1rem" }}>
-      <h2>Comportamiento del Tipo de Cambio del Dólar</h2>
+      <h2>{translatedContent.comportamientoDolar}</h2>
 
       {/* Barra de navegación */}
       <div style={{ display: "flex", marginBottom: "1rem" }}>
@@ -138,7 +198,7 @@ const TipoCambioRango = () => {
             cursor: "pointer",
           }}
         >
-          Consulta por rango
+          {translatedContent.consultaRango}
         </button>
         <button
           onClick={() => setActiveSection("fechaEspecifica")}
@@ -154,16 +214,16 @@ const TipoCambioRango = () => {
             cursor: "pointer",
           }}
         >
-          Consulta desde fecha específica
+          {translatedContent.consultaFechaEspecifica}
         </button>
       </div>
 
       {/* Sección activa */}
       {activeSection === "rango" && (
         <div>
-          <h3>Consulta por rango de fechas</h3>
+          <h3>{translatedContent.consultaRangoFechas}</h3>
           <label>
-            Fecha de inicio:{" "}
+            {translatedContent.fechaInicio}:{" "}
             <input
               type="date"
               value={startDate}
@@ -171,7 +231,7 @@ const TipoCambioRango = () => {
             />
           </label>
           <label style={{ marginLeft: "1rem" }}>
-            Fecha de fin:{" "}
+            {translatedContent.fechaFin}:{" "}
             <input
               type="date"
               value={endDate}
@@ -190,16 +250,16 @@ const TipoCambioRango = () => {
               cursor: "pointer",
             }}
           >
-            Generar gráfico
+            {translatedContent.generarGrafico}
           </button>
         </div>
       )}
 
       {activeSection === "fechaEspecifica" && (
         <div>
-          <h3>Consulta desde una fecha específica hasta hoy</h3>
+          <h3>{translatedContent.consultaDesdeFecha}</h3>
           <label>
-            Fecha específica:{" "}
+            {translatedContent.fechaEspecifica}:{" "}
             <input
               type="date"
               value={specificDate}
@@ -218,7 +278,7 @@ const TipoCambioRango = () => {
               cursor: "pointer",
             }}
           >
-            Generar gráfico
+            {translatedContent.generarGrafico}
           </button>
         </div>
       )}
@@ -237,20 +297,20 @@ const TipoCambioRango = () => {
               x: {
                 title: {
                   display: true,
-                  text: "Fecha",
+                  text: translatedContent.fecha,
                 },
               },
               y: {
                 title: {
                   display: true,
-                  text: "₡ (Colones)",
+                  text: translatedContent.colones,
                 },
               },
             },
           }}
         />
       ) : (
-        <p>Selecciona opciones para generar el gráfico.</p>
+        <p>{translatedContent.seleccionaOpciones}</p>
       )}
     </div>
   );

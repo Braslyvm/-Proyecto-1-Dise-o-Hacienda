@@ -24,6 +24,16 @@ const Ajustes = () => {
           temaOscuro,
           traducir
         });
+      } else {
+        const ajustes = await translateText('Settings', 'en', 'es');
+        const temaOscuro = await translateText('Dark Theme', 'en', 'es');
+        const traducir = await translateText('Translate to English', 'en', 'es');
+
+        setTranslatedContent({
+          ajustes,
+          temaOscuro,
+          traducir
+        });
       }
     };
 

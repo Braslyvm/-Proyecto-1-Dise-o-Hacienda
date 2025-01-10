@@ -49,6 +49,39 @@ function Search() {
   ];
 
   useEffect(() => {
+    const translateContent = async () => {
+      if (translate) {
+        const busquedaCabys = await translateText('Buscador de CABYS de Hacienda', 'es', 'en');
+        const ingreseCodigoONombre = await translateText('Ingrese código o nombre', 'es', 'en');
+        const favoritos = await translateText('Favoritos', 'es', 'en');
+        const codigo = await translateText('Código', 'es', 'en');
+        const descripcion =  await translateText('Descripción', 'es', 'en');
+        const impuesto =  await translateText('Impuesto', 'es', 'en');
+  
+        setTranslatedContent({
+          busquedaCabys,
+          ingreseCodigoONombre,
+          favoritos,
+          codigo,
+          descripcion,
+          impuesto
+        });
+  
+        const translatedResults = await Promise.all(results.map(async (item) => {
+          const descripcion = await translateText(item.descripcion, 'es', 'en');
+          const codigo = item.codigo;
+          const impuesto = item.impuesto;
+          return { ...item, descripcion, codigo, impuesto };
+        }));
+  
+        setResults(translatedResults);
+      }
+    };
+  
+    translateContent();
+  }, [translate]);
+
+  useEffect(() => {
     if (location.state?.lastSearch) {
       setSearchInput(location.state.lastSearch);
       handleSearch(location.state.lastSearch);
@@ -100,6 +133,18 @@ function Search() {
 
       setResultsEspanol(data.cabys);
       setResults(data.cabys);
+      if (translate) {
+        const translatedResults = await Promise.all(
+          data.cabys.map(async (item) => {
+            const descripcion = await translateText(item.descripcion, "es", "en");
+            const codigo = item.codigo;
+            const impuesto = item.impuesto;
+            return { ...item, descripcion, codigo, impuesto };
+          })
+        );
+        setResults(translatedResults);
+      }
+
     } catch (error) {
       alert("Error al realizar la solicitud.");
       console.error(error);

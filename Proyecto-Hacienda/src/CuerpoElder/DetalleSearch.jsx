@@ -7,6 +7,8 @@ import {
   deleteByEmailAndCode,
   exists,
 } from "../Logeo/Autentificacion";
+import translateText from '../CuerpoElder/translate';
+import { useGlobalContext } from '../CuerpoElder/GlobalContext';
 
 function DetalleCabys({ changeContent }) {
   const { email } = useAuth();
@@ -16,6 +18,19 @@ function DetalleCabys({ changeContent }) {
   const location = useLocation();
 
   const [favorito, setFavorito] = useState(false);
+  const [translatedContent, setTranslatedContent] = useState({
+    impuesto: 'Impuesto',
+    codigo: 'Código',
+    categorias: 'Categorías',
+    volver: 'Volver atrás',
+    campo: 'Campo',
+    valor: 'Valor'
+  });
+
+  const [translatedDescripcion, setTranslatedDescripcion] = useState(descripcion);
+  const [translatedParam3, setTranslatedParam3] = useState(param3);
+
+  const { translate } = useGlobalContext();
 
   useEffect(() => {
     const fetchValor = async () => {
@@ -25,6 +40,33 @@ function DetalleCabys({ changeContent }) {
 
     fetchValor();
   }, [usuario, param2]);
+
+  useEffect(() => {
+    const translateContent = async () => {
+      if (translate) {
+        const impuesto = await translateText('Impuesto', 'es', 'en');
+        const codigo = await translateText('Código', 'es', 'en');
+        const categorias = await translateText('Categorías', 'es', 'en');
+        const volver = await translateText('Volver atrás', 'es', 'en');
+        const campo = 'Field';
+        const valor = 'Value';
+        const translatedDescripcion = await translateText(descripcion, 'es', 'en');
+        const translatedParam3 = await translateText(param3, 'es', 'en');
+        setTranslatedContent({
+          impuesto,
+          codigo,
+          categorias,
+          volver,
+          campo,
+          valor
+        });
+        setTranslatedDescripcion(translatedDescripcion);
+        setTranslatedParam3(translatedParam3);
+      }
+    };
+
+    translateContent();
+  }, [translate, descripcion, param3]);
 
   const handleFavoriteClick = async () => {
     const nuevoFavorito = !favorito;
@@ -43,26 +85,26 @@ function DetalleCabys({ changeContent }) {
 
   return (
     <div>
-      <h1>{descripcion}</h1>
+      <h1>{translatedDescripcion}</h1>
       <table className="detail-table">
         <thead>
           <tr>
-            <th>Campo</th>
-            <th>Valor</th>
+            <th>{translatedContent.campo}</th>
+            <th>{translatedContent.valor}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Impuesto</td>
+            <td>{translatedContent.impuesto}</td>
             <td>{param1}%</td>
           </tr>
           <tr>
-            <td>Código</td>
+            <td>{translatedContent.codigo}</td>
             <td>{param2}</td>
           </tr>
           <tr>
-            <td>Categorías</td>
-            <td>{param3}</td>
+            <td>{translatedContent.categorias}</td>
+            <td>{translatedParam3}</td>
           </tr>
         </tbody>
       </table>
@@ -73,7 +115,7 @@ function DetalleCabys({ changeContent }) {
         {favorito ? "★" : "☆"}
       </button>
       <button className="back-button" onClick={back}>
-        Volver atrás
+        {translatedContent.volver}
       </button>
     </div>
   );
