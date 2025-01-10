@@ -1,6 +1,6 @@
-/* Sidebar.css */
+/* Estilo base de la Sidebar */
 .sidebar {
-  background: linear-gradient(180deg, #F5EFFF, #E5D9F2);
+  background: linear-gradient(180deg, #F5EFFF, #E5D9F2); /* Fondo por defecto (tema claro) */
   width: 250px;
   height: 100vh;
   padding: 20px;
@@ -11,16 +11,19 @@
   position: fixed;
   top: 0;
   left: 0;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* Encabezado del menú */
 .sidebar h2 {
   font-size: 26px;
-  color: #6B52F2;  /* Oscurecido para mejorar el contraste */
+  color: #6B52F2; /* Color por defecto */
   text-align: center;
   margin-bottom: 30px;
   font-weight: 600;
 }
 
+/* Lista de elementos del menú */
 .sidebar ul {
   list-style-type: none;
   padding: 0;
@@ -33,23 +36,24 @@
 
 .sidebar ul li a {
   text-decoration: none;
-  color: #5E4AB6;  /* Oscurecido para mayor contraste */
+  color: #5E4AB6; /* Color por defecto */
   font-size: 18px;
   font-weight: 500;
-  transition: color 0.3s ease, transform 0.2s ease;
   display: block;
   padding: 10px;
   border-radius: 8px;
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
 }
 
 .sidebar ul li a:hover {
-  color: #EDE7FF;  /* Color de texto más claro al pasar el mouse */
-  background-color: #6B52F2;  /* Cambio de fondo al pasar el mouse */
+  color: #EDE7FF;
+  background-color: #6B52F2;
   transform: translateX(10px);
 }
 
+/* Botón de cierre de sesión */
 .sidebar button {
-  background-color: #6B52F2;  /* Colore más oscuro para el botón */
+  background-color: #6B52F2;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -71,4 +75,31 @@
 .sidebar button:focus {
   outline: 3px solid #F5EFFF;
   outline-offset: 2px;
+}
+
+/* Tema oscuro */
+.dark-theme {
+  background: linear-gradient(180deg, #333, #555); /* Fondo oscuro */
+  color: #F5EFFF; /* Texto claro */
+}
+
+.dark-theme h2 {
+  color: #F5EFFF; /* Encabezado en tema oscuro */
+}
+
+.dark-theme ul li a {
+  color: #F5EFFF; /* Texto de enlaces */
+}
+
+.dark-theme ul li a:hover {
+  color: #E5D9F2; /* Color más claro */
+  background-color: #6B52F2;
+}
+
+.dark-theme button {
+  background-color: #6B52F2; /* Botón en tema oscuro */
+}
+
+.dark-theme button:hover {
+  background-color: #CDC1FF;
 }

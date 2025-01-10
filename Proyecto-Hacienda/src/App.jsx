@@ -7,6 +7,7 @@ import Navbar from "./Componentes/Navbar";
 import Logeo from "./Logeo/Logeo";
 import Registro from "./Logeo/Registro";
 import DetalleCabys from "./CuerpoElder/DetalleSearch";
+import { ThemeProvider } from "./Componentes/ThemeProvider";
 import { GlobalProvider } from "./CuerpoElder/GlobalContext";
 import { AuthProvider } from "./Logeo/Lectura";
 import "./App.css";
@@ -21,35 +22,37 @@ function App() {
   };
 
   return (
-    <GlobalProvider>
-      <AuthProvider>
-        <div className="app-container">
-          {useLocation().pathname === "/" ? (
-            <Navbar />
-          ) : useLocation().pathname !== "/logeo" &&
-            useLocation().pathname !== "/Registro" &&
-            useLocation().pathname !== "/" ? (
-            <Sidebar changeContent={changeContent} />
-          ) : null}
-          <main className="main-content">
-            <Routes>
-              <Route
-                path="/DetalleCabys/:descripcion/param1/:param1/param2/:param2/param3/:param3"
-                element={<DetalleCabys changeContent={changeContent} />}
-              />
-              <Route path="/" element={<Home />} />
-              <Route path="/logeo" element={<Logeo />} />
-              <Route path="/registro" element={<Registro />} />
-              <Route path="/Navbar" element={<Navbar />} />
-              <Route path="/translate" element={<TranslateComponent />} />
-              <Route path="/ajustes" element={<Ajustes />} />
-              <Route path="/app" element={<MainContent content={content} />} />
-              <Route path="/search" element={<Search />} />
-            </Routes>
-          </main>
-        </div>
-      </AuthProvider>
-    </GlobalProvider>
+    <ThemeProvider>
+      <GlobalProvider>
+        <AuthProvider>
+          <div className="app-container">
+            {useLocation().pathname === "/" ? (
+              <Navbar />
+            ) : useLocation().pathname !== "/logeo" &&
+              useLocation().pathname !== "/Registro" &&
+              useLocation().pathname !== "/" ? (
+              <Sidebar changeContent={changeContent} />
+            ) : null}
+            <main className="main-content">
+              <Routes>
+                <Route
+                  path="/DetalleCabys/:descripcion/param1/:param1/param2/:param2/param3/:param3"
+                  element={<DetalleCabys changeContent={changeContent} />}
+                />
+                <Route path="/" element={<Home />} />
+                <Route path="/logeo" element={<Logeo />} />
+                <Route path="/registro" element={<Registro />} />
+                <Route path="/Navbar" element={<Navbar />} />
+                <Route path="/translate" element={<TranslateComponent />} />
+                <Route path="/ajustes" element={<Ajustes />} />
+                <Route path="/app" element={<MainContent content={content} />} />
+                <Route path="/search" element={<Search />} />
+              </Routes>
+            </main>
+          </div>
+        </AuthProvider>
+      </GlobalProvider>
+    </ThemeProvider>
   );
 }
 const AppWithRouter = () => (

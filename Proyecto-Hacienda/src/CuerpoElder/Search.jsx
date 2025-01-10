@@ -14,7 +14,7 @@ function Search() {
   const [favorites, setFavorites] = useState([]);
   const [results, setResults] = useState([]);
   const [resultsEspanol, setResultsEspanol] = useState([]);
-  const { translate } = useGlobalContext();
+  const { translate, dark } = useGlobalContext();
   const [searchInput, setSearchInput] = useState("");
   const [translatedContent, setTranslatedContent] = useState({
     busquedaCabys: "Buscador de CABYS de Hacienda",
@@ -152,7 +152,7 @@ function Search() {
   };
 
   return (
-    <div id="root">
+    <div className={`search-container ${dark ? 'dark-theme' : 'light-theme'}`}>
       <h2>{translatedContent.busquedaCabys}</h2>
       <div className="search-container">
         <input

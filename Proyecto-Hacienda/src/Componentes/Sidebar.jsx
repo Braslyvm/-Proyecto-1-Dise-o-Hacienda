@@ -6,7 +6,7 @@ import translateText from '../CuerpoElder/translate';
 
 function Sidebar({ changeContent }) {
   const navigate = useNavigate();
-  const { translate } = useGlobalContext();
+  const { translate, dark } = useGlobalContext();
   const [translatedContent, setTranslatedContent] = useState({
     menu: 'Menu',
     buscador: 'Buscador',
@@ -59,7 +59,7 @@ function Sidebar({ changeContent }) {
   };
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${dark ? 'dark-theme' : 'light-theme'}`}>
       <h2>{translatedContent.menu}</h2>
       <ul>
         <li><a href="#" onClick={() => handleNavigation("section1")}>{translatedContent.buscador}</a></li>
