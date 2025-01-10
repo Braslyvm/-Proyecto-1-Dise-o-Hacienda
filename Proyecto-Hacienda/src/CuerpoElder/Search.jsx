@@ -152,7 +152,7 @@ function Search() {
   };
 
   return (
-    <div className={`search-container ${dark ? 'dark-theme' : 'light-theme'}`}>
+    <div className={`first-container ${dark ? 'dark-theme' : 'light-theme'}`}>
       <h2>{translatedContent.busquedaCabys}</h2>
       <div className="search-container">
         <input
@@ -210,6 +210,7 @@ function Search() {
           ))}
         </select>
       </div>
+      
       <table className="table">
         <thead>
           <tr>

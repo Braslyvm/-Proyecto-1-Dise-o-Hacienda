@@ -1,0 +1,17 @@
+
+.main-content-area.dark-theme {
+    background: linear-gradient(135deg, #0d0d1f, #23233a); /* Degradado más oscuro */
+    color: #f0f0f0; /* Color del texto en modo oscuro */
+}
+
+
+/* Estilo para la zona de contenido */
+.main-content-area {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    flex-grow: 1; /* Permite que el área de contenido ocupe todo el espacio restante */
+    overflow-y: auto; /* Permite el desplazamiento si el contenido es demasiado grande */
+    height: 100%; /* Asegura que ocupe toda la altura disponible dentro de .main-content */
+    width: 100%; /* Asegura que el body ocupe todo el ancho */
+  }
