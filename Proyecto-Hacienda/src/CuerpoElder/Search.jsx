@@ -51,33 +51,47 @@ function Search() {
   useEffect(() => {
     const translateContent = async () => {
       if (translate) {
-        const busquedaCabys = await translateText('Buscador de CABYS de Hacienda', 'es', 'en');
-        const ingreseCodigoONombre = await translateText('Ingrese código o nombre', 'es', 'en');
-        const favoritos = await translateText('Favoritos', 'es', 'en');
-        const codigo = await translateText('Código', 'es', 'en');
-        const descripcion =  await translateText('Descripción', 'es', 'en');
-        const impuesto =  await translateText('Impuesto', 'es', 'en');
-  
+        const busquedaCabys = await translateText(
+          "Buscador de CABYS de Hacienda",
+          "es",
+          "en"
+        );
+        const ingreseCodigoONombre = await translateText(
+          "Ingrese código o nombre",
+          "es",
+          "en"
+        );
+        const favoritos = await translateText("Favoritos", "es", "en");
+        const codigo = await translateText("Código", "es", "en");
+        const descripcion = await translateText("Descripción", "es", "en");
+        const impuesto = await translateText("Impuesto", "es", "en");
+
         setTranslatedContent({
           busquedaCabys,
           ingreseCodigoONombre,
           favoritos,
           codigo,
           descripcion,
-          impuesto
+          impuesto,
         });
-  
-        const translatedResults = await Promise.all(results.map(async (item) => {
-          const descripcion = await translateText(item.descripcion, 'es', 'en');
-          const codigo = item.codigo;
-          const impuesto = item.impuesto;
-          return { ...item, descripcion, codigo, impuesto };
-        }));
-  
+
+        const translatedResults = await Promise.all(
+          results.map(async (item) => {
+            const descripcion = await translateText(
+              item.descripcion,
+              "es",
+              "en"
+            );
+            const codigo = item.codigo;
+            const impuesto = item.impuesto;
+            return { ...item, descripcion, codigo, impuesto };
+          })
+        );
+
         setResults(translatedResults);
       }
     };
-  
+
     translateContent();
   }, [translate]);
 
@@ -136,7 +150,11 @@ function Search() {
       if (translate) {
         const translatedResults = await Promise.all(
           data.cabys.map(async (item) => {
-            const descripcion = await translateText(item.descripcion, "es", "en");
+            const descripcion = await translateText(
+              item.descripcion,
+              "es",
+              "en"
+            );
             const codigo = item.codigo;
             const impuesto = item.impuesto;
             return { ...item, descripcion, codigo, impuesto };
@@ -144,7 +162,6 @@ function Search() {
         );
         setResults(translatedResults);
       }
-
     } catch (error) {
       alert("Error al realizar la solicitud.");
       console.error(error);
@@ -152,7 +169,7 @@ function Search() {
   };
 
   return (
-    <div className={`first-container ${dark ? 'dark-theme' : 'light-theme'}`}>
+    <div className={`first-container ${dark ? "dark-theme" : "light-theme"}`}>
       <h2>{translatedContent.busquedaCabys}</h2>
       <div className="search-container">
         <input
@@ -190,6 +207,7 @@ function Search() {
           setResults={setResults}
         />
       </div>
+  
       <div className="busquedacat">
         <select
           onChange={(e) => {
@@ -210,35 +228,48 @@ function Search() {
           ))}
         </select>
       </div>
-      
-      <table className="table">
-        <thead>
-          <tr>
-            <th>{translatedContent.codigo}</th>
-            <th>{translatedContent.descripcion}</th>
-            <th>{translatedContent.impuesto}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {results.map((item, index) => (
-            <tr key={item.codigo}>
-              <td>{item.codigo}</td>
-              <td>
-                <Link
-                  to={`/DetalleCabys/${resultsEspanol[index].descripcion}/param1/${resultsEspanol[index].impuesto}/param2/${resultsEspanol[index].codigo}/param3/${resultsEspanol[index].categorias}`}
-                  state={{ lastSearch: searchInput }}
-                  className="descripcion"
-                >
-                  {item.descripcion || "Descripción no disponible"}
-                </Link>
-              </td>
-              <td className="text-center">{item.impuesto}%</td>
+  
+      <div className="scrooll">
+        <table className="table">
+          <thead>
+            <tr>
+              <th className="codigoDisplay">{translatedContent.codigo}</th>
+              <th className="descripcionDisplay">
+                {translatedContent.descripcion}
+              </th>
+              <th className="impuestoDisplay">{translatedContent.impuesto}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {results.length > 0 ? (
+              results.map((item, index) => (
+                <tr key={item.codigo}>
+                  <td className="codigoDisplay">{item.codigo}</td>
+                  <td className="descripcionDisplay">
+                    <Link
+                      to={`/DetalleCabys/${resultsEspanol[index].descripcion}/param1/${resultsEspanol[index].impuesto}/param2/${resultsEspanol[index].codigo}/param3/${resultsEspanol[index].categorias}`}
+                      className="descripcion"
+                    >
+                      {item.descripcion || "Descripción no disponible"}
+                    </Link>
+                  </td>
+                  <td className="impuestoDisplay text-center">
+                    {item.impuesto}%
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3" style={{ textAlign: "center", padding: "20px" }}>
+                  Realiza una busqueda cabys
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
+  
 }
-
 export default Search;
