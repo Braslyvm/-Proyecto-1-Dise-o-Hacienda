@@ -38,7 +38,6 @@ body {
 /* Estilo para la zona de contenido */
 .main-content-area {
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 5px;
   flex-grow: 1; /* Permite que el área de contenido ocupe todo el espacio restante */
   overflow-y: auto; /* Permite el desplazamiento si el contenido es demasiado grande */
