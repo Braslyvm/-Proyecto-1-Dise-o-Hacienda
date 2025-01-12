@@ -1,15 +1,3 @@
-* {
-  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho y alto total */
-}
-
-html, body {
-  height: 100%; /* Asegura que el html y el body ocupen toda la altura */
-  margin: 0; /* Elimina el margen por defecto */
-  padding: 0; /* Elimina el padding por defecto */
-  overflow: hidden; /* Evita el scroll en el body */
-  font-family: Arial, sans-serif; /* Fuente legible */
-}
-
 .first-container {
   height: 100vh; /* Ocupar toda la altura de la ventana */
   display: flex; /* Usar flexbox */
@@ -65,116 +53,101 @@ html, body {
 
 
 .search-container {
-  display: flex; /* Usar flexbox para el contenedor de búsqueda */
-  align-items: center; /* Centrar elementos verticalmente */
-  justify-content: center; /* Alinear elementos hacia la izquierda */
-  margin-bottom: 2rem; /* Espacio inferior */
-  height: 40px; /* Aseguramos que la altura total del contenedor sea la misma */
-  padding: 20px;
-}
-
-.search-container.dark-theme {
-  justify-content: center; /* Centrar horizontalmente en tema oscuro */
-  text-align: center; /* Asegura alineación */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 #search-input {
-  padding: 0.8rem; /* Espaciado interno */
-  width: 300px; /* Ancho del input */
-  border: 1px solid #CDC1FF; /* Borde suave con el tono de la paleta */
-  border-radius: 8px; /* Bordes redondeados */
-  background-color: #F5EFFF; /* Fondo suave */
-  color: #6B52F2; /* Color de texto */
-  font-size: 16px; /* Tamaño de texto */
-  margin-right: 10px; /* Espacio entre el input y el botón de búsqueda */
-  height: 100%; /* Aseguramos que el input ocupe todo el contenedor */
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-#search-button, #favorites-button {
-  padding: 0.8rem 1.2rem; /* Espaciado interno */
-  background-color: #A294F9; /* Color de fondo */
-  color: white; /* Color del texto */
-  border: none; /* Sin borde */
-  border-radius: 8px; /* Bordes redondeados */
-  cursor: pointer; /* Cambiar cursor al pasar */
-  font-size: 16px; /* Tamaño de texto */
-  height: 100%; /* Aseguramos que el botón ocupe todo el contenedor */
-  display: flex; /* Usar flexbox para centrar el texto */
-  align-items: center; /* Centrar texto verticalmente */
-  transition: background-color 0.3s ease;
+#search-button {
+  padding: 10px;
+  margin-left: 10px;
+  border: none;
+  color: #f6f6f6;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-#search-button:hover, #favorites-button:hover {
-  background-color: #4500b3; /* Fondo más oscuro al pasar */
+#search-button:hover {
+  background-color: #cdc1ff; /* Verde más oscuro */
+}
+
+#favorites-button {
+  padding: 10px;
+  background-color: #cdc1ff; /* Naranja */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#favorites-button:hover {
+  background-color: #cdc1ff; /* Naranja más oscuro */
 }
 
 .busquedacat {
-  margin-top: 1rem; /* Espacio superior para la categoría */
-  display: flex; /* Usar flexbox */
-  align-items: center; /* Centrar verticalmente */
-  justify-content: center; 
-}
-
-.busquedacat.dark-theme {
-  justify-content: center; /* Centrar horizontalmente en tema oscuro */
+  white-space: 100px;
+  margin-left: 655px;
+  text-align: center;
 }
 
 .categoria-dropdown {
-  margin-top: 10px;
   padding: 9px;
+  border-radius: 4px;
+  border: 1px #ccc;
+  width: 2px;
+  background-color: #cdc1ff;
+  text-align: center;
+  white-space: 100px;
+  margin-right: 480px;
+  margin-top: -80px;
+}
+
+.scrooll {
+  max-height: 400px; /* Altura máxima para la tabla */
+  min-height: 300px; /* Altura mínima para el contenedor */
   border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 250px;
-  font-size: 14px;
+  border-radius: 4px;
 }
 
 .table {
-  width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho */
-  margin-top: 2rem; /* Espacio superior */
-  border-collapse: collapse; /* Colapsar bordes */
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .table th,
 .table td {
-  border: 1px solid #CDC1FF; /* Borde suave */
-  padding: 0.8rem; /* Espaciado interno */
-  color: #010202; /* Color de texto oscuro */
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  word-wrap: break-word;
 }
 
 .table th {
-  background-color: #A294F9; /* Fondo de encabezado con tono de la paleta */
-  text-align: left; /* Alinear texto a la izquierda */
-  color: white; /* Texto blanco en el encabezado */
+  background-color: #a294f9; /* Fondo del encabezado */
+  color: white; /* Color del texto */
+  text-align: center;
+
+  top: 0; /* Mantén el encabezado en la parte superior */
+  z-index: 2; /* Encabezado sobre el contenido */
 }
 
-.text-center {
-  text-align: center; /* Alinear texto al centro */
-  color: #010202; /* Color del texto */
+.table tbody {
+  max-height: 400px; /* Altura máxima del contenido de la tabla */
+  overflow-y: auto; /* Desplazamiento vertical */
+  display: block; /* Asegura que solo el cuerpo haga scroll */
 }
 
-h2 {
-  color: #6B52F2; /* Color más oscuro para los encabezados */
-  font-size: 2rem; /* Tamaño mayor para el encabezado */
-  font-weight: bold;
-}
-
-.favorite {
-  margin-top: 1rem; /* Espacio superior para el elemento favorito */
-  display: flex; /* Usar flexbox para el contenedor de favoritos */
-  align-items: center; /* Centrar elementos verticalmente */
-}
-
-.favorite-button {
-  padding: 0.5rem 1rem; /* Espaciado interno */
-  background-color: #FFD700; /* Color dorado para el botón de favoritos */
-  color: #000; /* Color del texto */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cambiar cursor al pasar */
-  transition: background-color 0.3s ease; /* Transición suave */
-}
-
-.favorite-button:hover {
-  background-color: #FFC107; /* Fondo más oscuro al pasar */
+.table thead,
+.table tbody tr {
+  display: table; /* Necesario para mantener el ancho de las columnas */
+  width: 100%; /* Ancho fijo para evitar desbordes */
+  table-layout: fixed; /* Controla el tamaño de las columnas */
 }
