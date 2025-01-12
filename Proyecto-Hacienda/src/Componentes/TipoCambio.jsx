@@ -6,7 +6,6 @@ import { useGlobalContext } from "./GlobalContext";
 function TipoCambio() {
   const [dolar, setDolar] = useState({});
   const [euro, setEuro] = useState({});
-  const [conversion, setConversion] = useState({ dolares: null, colones: null });
   const [translatedContent, setTranslatedContent] = useState({
     tipoCambioDolar: "Tipo de Cambio del Dólar",
     venta: "Venta",
@@ -68,12 +67,6 @@ function TipoCambio() {
       }
       const dataEuro = await responseEuro.json();
       setEuro(dataEuro);
-
-      // Calcula la conversión
-      if (dataEuro.valor && dataDolar.compra.valor) {
-        const conversionColones = dataEuro.valor * dataDolar.compra.valor;
-        setConversion({ dolares: dataEuro.valor, colones: conversionColones });
-      }
     } catch (error) {
       console.error(error.message);
     }
@@ -98,13 +91,13 @@ function TipoCambio() {
       </div>
       <div className={`tipo-cambio ${dark ? "dark-theme" : ""}`}>
         <h3>{translatedContent.tipoCambioEuro}</h3>
-        {conversion.dolares && conversion.colones ? (
+        {euro.dolares && euro.colones ? (
           <>
             <p>
-              <b>{translatedContent.dolares}:</b> {conversion.dolares}
+              <b>{translatedContent.dolares}:</b> {euro.dolares}
             </p>
             <p>
-              <b>{translatedContent.colones}:</b> {conversion.colones}
+              <b>{translatedContent.colones}:</b> {euro.colones}
             </p>
           </>
         ) : (
