@@ -11,6 +11,35 @@ input[type="date"] {
   background-color: #E5D9F2;  /* Fondo suave en color intermedio de la paleta */
 }
 
+.warning-message {
+  background-color: #ffefc2; /* Fondo amarillo claro */
+  color: #856404; /* Texto marrón oscuro */
+  border: 1px solid #ffd56b; /* Borde amarillo más oscuro */
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 15px 0;
+  display: inline-block; /* Para que no ocupe todo el ancho */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  text-align: center; /* Centrar el texto */
+  justify-content: center;
+  animation: fadeIn 0.5s ease-in-out; /* Efecto de entrada suave */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
 /* Efecto al pasar el cursor sobre los botones */
 button:hover {
   background-color: #A294F9;  /* Fondo morado oscuro al hacer hover */

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'; 
 import { Link } from 'react-router-dom'; 
-import './Favorito.css';
+import '../styles/Favorito.css';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { deleteByEmailAndCode } from '../Logeo/Autentificacion';
 import { useAuth } from '../Logeo/Lectura';
-import translateText from '../CuerpoElder/translate';
-import { useGlobalContext } from '../CuerpoElder/GlobalContext';
+import translateText from './translate';
+import { useGlobalContext } from './GlobalContext';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -22,7 +22,7 @@ const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => {
   const classes = useStyles(); 
   const [results, setResultsE] = useState([]);
 
-  const { translate } = useGlobalContext();
+  const { translate,dark  } = useGlobalContext();
   const [translatedFavorites, setTranslatedFavorites] = useState({
     listaFav: 'Lista de Favoritos',
     codigo: 'Código',
@@ -78,11 +78,11 @@ const Favorito = ({ isOpen, onClose, favorites, setFavorites, setResults }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className={`modal-content ${dark ? 'dark-theme' : ''}`}>
         <h2>{translatedFavorites.listaFav}</h2>
         <div className="favorites-list">
           {results.length > 0 ? (
-            <table className="favorites-table">
+            <table className={`favorites-table ${dark ? 'dark-theme' : ''}`}>
               <thead>
                 <tr>
                   <th>{translatedFavorites.codigo}</th>

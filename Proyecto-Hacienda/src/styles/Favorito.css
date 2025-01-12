@@ -228,3 +228,86 @@ h2 {
 .favorites-table tr:hover {
   background-color: #f1f1f1;
 }
+
+.modal-content.dark-theme {
+  background: #1e1e1e; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco */
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2); /* Sombra más clara */
+}
+
+.modal-content.dark-theme h2 {
+  color: #f5f5f5; /* Título en un tono claro */
+}
+
+.favorites-table.dark-theme th {
+  background-color: #333; /* Encabezado oscuro */
+  color: #f5f5f5; /* Texto claro */
+}
+
+.favorites-table.dark-theme td {
+  background-color: #2a2a2a; /* Filas con fondo oscuro */
+  color: #e0e0e0; /* Texto claro */
+}
+
+.favorites-table.dark-theme tr:hover {
+  background-color: #444; /* Color de resaltado */
+}
+
+.favorite-item.dark-theme {
+  background-color: #2a2a2a; /* Fondo oscuro */
+  border: 1px solid #444; /* Bordes oscuros */
+}
+
+.no-favorites.dark-theme {
+  color: #bbb; /* Texto en gris claro */
+}
+
+.close-button.dark-theme {
+  background-color: #555; /* Botón oscuro */
+  color: #fff; /* Texto blanco */
+}
+
+.close-button.dark-theme:hover {
+  background-color: #777; /* Color más claro al pasar el ratón */
+}
+
+.favorites-table.dark-theme {
+  background-color: #1e1e1e; /* Fondo oscuro para la tabla */
+  border-collapse: collapse;
+}
+
+.favorites-table.dark-theme th {
+  background-color: #333; /* Fondo oscuro para encabezados */
+  color: #f5f5f5; /* Texto claro */
+  padding: 10px;
+  text-align: center;
+}
+
+.favorites-table.dark-theme td {
+  background-color: #2a2a2a; /* Fondo oscuro para celdas */
+  color: #e0e0e0; /* Texto claro */
+  padding: 10px;
+  border-bottom: 1px solid #444; /* Borde más oscuro */
+}
+
+.favorites-table.dark-theme tr:hover {
+  background-color: #444; /* Fondo ligeramente más claro al pasar el cursor */
+}
+
+.favorites-table.dark-theme .code-cell {
+  width: 20px;
+  color: #c5c5c5; /* Texto en gris claro */
+}
+
+.favorites-table.dark-theme .description-cell {
+  width: 300px;
+}
+
+.favorites-table.dark-theme .action-cell {
+  width: 10px;
+  text-align: center;
+}
+
+.no-favorites.dark-theme {
+  color: #bbb; /* Texto gris claro */
+}

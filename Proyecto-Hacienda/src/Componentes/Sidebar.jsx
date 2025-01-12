@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./Sidebar.css";
+import "../styles/Sidebar.css";
 import { useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../CuerpoElder/GlobalContext";
-import translateText from '../CuerpoElder/translate';
+import { useGlobalContext } from "./GlobalContext";
+import translateText from './translate';
 
 function Sidebar({ changeContent }) {
   const navigate = useNavigate();

@@ -18,6 +18,25 @@
   margin-bottom: 20px; /* Añadir margen inferior para separar los contenedores */
 }
 
+.tipo-cambio .dark-theme{
+  background-color: #333;
+  color:#fefeff ;
+}
+
+body.dark-theme .tipo-cambio {
+  background-color: #333; /* Fondo oscuro */
+  color: #fefeff; /* Texto principal en blanco */
+}
+
+body.dark-theme .tipo-cambio h3 {
+  color: #ffffff; /* Color blanco para los títulos */
+}
+
+body.dark-theme .tipo-cambio p {
+  color: #ffffff; /* Color blanco para el texto */
+}
+
+
 .tipo-cambio h3 {
   margin-bottom: 1rem;
   color: #6B52F2; /* Oscurecido para mejorar la visibilidad */
@@ -32,11 +51,11 @@
 }
 
 .tipo-cambio p b {
-  color: #5E4AB6; /* Un tono de morado más oscuro para el texto en negrita */
+  color: #6553b6; /* Un tono de morado más oscuro para el texto en negrita */
 }
 
 .tipo-cambio button {
-  background-color: #6B52F2; /* Color oscuro para el botón */
+  background-color: #7964f0; /* Color oscuro para el botón */
   color: white;
   border: none;
   padding: 14px 28px; /* Aumentar el padding del botón */

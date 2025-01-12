@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom"; // Importar hooks adicionales
-import "./Search.css";
+import "../styles/Search.css";
 import Modal from "./Favoritos";
 import { getDocumentsByEmail } from "../Logeo/Autentificacion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../Logeo/Lectura";
-import { useGlobalContext } from "../CuerpoElder/GlobalContext";
-import translateText from "../CuerpoElder/translate";
+import { useGlobalContext } from "./GlobalContext";
+import translateText from "./translate";
 
 function Search() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,6 +29,7 @@ function Search() {
   const userCorreo = email;
   const navigate = useNavigate();
   const location = useLocation();
+  const [message, setMessage] = useState("");
 
   const categorias = [
     "Productos agrícolas y alimenticios",
@@ -108,6 +109,7 @@ function Search() {
   };
 
   const handleSearch = async (nombreOCodigo) => {
+    setMessage("");
     const esCodigo = /^\d+$/.test(nombreOCodigo);
 
     if (translate) {
@@ -127,7 +129,7 @@ function Search() {
 
       const data = await response.json();
       if (!data.cabys || data.cabys.length === 0) {
-        alert("No se encontraron resultados.");
+        setMessage("No se encontraron resultados.");
         return;
       }
 
@@ -146,7 +148,7 @@ function Search() {
       }
 
     } catch (error) {
-      alert("Error al realizar la solicitud.");
+      setMessage("Error al realizar la solicitud.");
       console.error(error);
     }
   };
@@ -154,6 +156,7 @@ function Search() {
   return (
     <div className={`first-container ${dark ? 'dark-theme' : 'light-theme'}`}>
       <h2>{translatedContent.busquedaCabys}</h2>
+      {message && <div className="warning-message">{message}</div>} {/* Mostrar mensaje al usuario */}
       <div className="search-container">
         <input
           type="text"
@@ -169,8 +172,9 @@ function Search() {
         <button
           id="search-button"
           onClick={() => {
+            setMessage("");
             if (searchInput) handleSearch(searchInput.trim());
-            else alert("Por favor, ingrese un criterio de búsqueda.");
+            else setMessage("Por favor, ingrese un criterio de búsqueda.");
           }}
         >
           <FontAwesomeIcon icon={faSearch} />

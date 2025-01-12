@@ -1,9 +1,9 @@
 // src/Componentes/MainContent.jsx
 import React from 'react';
-import Buscador from '../CuerpoElder/Search.jsx';  // Importa con la primera letra en mayúscula
-import Valor from '../CuerpoElder/TipoCambio.jsx';
-import Comportamiento from '../CuerpoElder/TipoCambioRango.jsx';
-import Ajustes from '../CuerpoElder/Ajustes.jsx';
+import Buscador from './Search.jsx';  // Importa con la primera letra en mayúscula
+import Valor from './TipoCambio.jsx';
+import Comportamiento from './TipoCambioRango.jsx';
+import Ajustes from './Ajustes.jsx';
 
 function MainContent({ content }) {
     const renderContent = () => {

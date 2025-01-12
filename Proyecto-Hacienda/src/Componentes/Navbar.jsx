@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
-import "./Navbar.css";
+import "../styles//Navbar.css";
 
 const Navbar = () => {
   return (

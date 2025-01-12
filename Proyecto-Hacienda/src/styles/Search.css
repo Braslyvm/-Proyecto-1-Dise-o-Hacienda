@@ -22,9 +22,9 @@ html, body {
 
 /* Tema oscuro para el contenedor principal */
 .dark-theme .first-container {
-  border: 4px solid #6B52F2; /* Borde más grueso en tema oscuro */
+  border: 4px solid #242425; /* Borde más grueso en tema oscuro */
   border-radius: 15px; /* Bordes redondeados */
-  background: linear-gradient(135deg, #1e1e2f, #2b2b4a); /* Fondo degradado */
+  background: linear-gradient(135deg, #252529, #3f3f44); /* Fondo degradado */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
   padding: 20px; /* Espaciado interno consistente */
 }
@@ -35,6 +35,34 @@ html, body {
   margin: 1rem 0; /* Espaciado entre elementos */
   text-align: center; /* Centrar texto dentro del contenedor */
 }
+
+.warning-message {
+  background-color: #ffefc2; /* Fondo amarillo claro */
+  color: #856404; /* Texto marrón oscuro */
+  border: 1px solid #ffd56b; /* Borde amarillo más oscuro */
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 15px 0;
+  display: inline-block; /* Para que no ocupe todo el ancho */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  text-align: center; /* Centrar el texto */
+  justify-content: center;
+  animation: fadeIn 0.5s ease-in-out; /* Efecto de entrada suave */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .search-container {
   display: flex; /* Usar flexbox para el contenedor de búsqueda */

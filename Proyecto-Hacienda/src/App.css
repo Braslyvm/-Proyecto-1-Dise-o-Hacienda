@@ -30,8 +30,6 @@ body {
   flex-direction: column; /* Asegura que el contenido interno se acomode en columna */
   margin-left: 250px; /* Desplaza el contenido a la derecha para respetar el sidebar (asumido que el sidebar tiene un ancho de 250px) */
   padding: 20px; /* Espaciado interior del contenido */
-
-  background-color: #ffffff; 
   height: calc(100vh - 60px);
 }
 
@@ -39,7 +37,6 @@ body {
 /* Estilo para la zona de contenido */
 .main-content-area {
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 5px;
   flex-grow: 1; /* Permite que el área de contenido ocupe todo el espacio restante */
   overflow-y: auto; /* Permite el desplazamiento si el contenido es demasiado grande */

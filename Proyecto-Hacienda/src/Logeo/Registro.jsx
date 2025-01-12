@@ -11,8 +11,8 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import translateText from '../CuerpoElder/translate';
-import { useGlobalContext } from '../CuerpoElder/GlobalContext';
+import translateText from '../Componentes/translate';
+import { useGlobalContext } from '../Componentes/GlobalContext';
 
 export default function Registro() {
   const [email, setEmail] = useState('');

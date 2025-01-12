@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalContext } from "../CuerpoElder/GlobalContext";
-import translateText from '../CuerpoElder/translate';
-import "./Ajustes.css";
+import { useGlobalContext } from "./GlobalContext";
+import translateText from './translate';
+import "../styles/Ajustes.css";
 
 
 const Ajustes = () => {
@@ -11,6 +11,14 @@ const Ajustes = () => {
     temaOscuro: 'Tema Oscuro',
     traducir: 'Traducir a inglés'
   });
+
+  useEffect(() => {
+      if (dark) {
+        document.body.classList.add("dark-theme");
+      } else {
+        document.body.classList.remove("dark-theme");
+      }
+    }, [dark]); 
 
   useEffect(() => {
     const translateContent = async () => {

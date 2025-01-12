@@ -14,8 +14,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import ManejoErrores from './ManejoErrores';
 import { useAuth } from './Lectura'; 
-import translateText from '../CuerpoElder/translate';
-import { useGlobalContext } from '../CuerpoElder/GlobalContext';
+import translateText from '../Componentes/translate';
+import { useGlobalContext } from '../Componentes/GlobalContext';
 
 export default function Logeo() {
   const { setEmail } = useAuth(); 

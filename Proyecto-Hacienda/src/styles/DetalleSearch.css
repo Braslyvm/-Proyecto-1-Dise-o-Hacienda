@@ -1,0 +1,130 @@
+/* Estilo para el h1 */
+h1 {
+  color: #000;
+  margin: 0; /* Elimina los márgenes predeterminados */
+  font-size: 24px; /* Tamaño de fuente del h1 */
+  font-weight: bold; /* Hace que el texto sea negrita */
+  position: relative; /* Para que el botón de la estrella se posicione relativo al h1 */
+  top: 13px; /* Ajusta la posición vertical si es necesario */
+  left: 32px;
+}
+
+body.dark-theme {
+  background-color: #242323; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco para contraste */
+}
+
+/* Estilos para la tabla de detalles */
+.detail-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse; /* Elimina los espacios entre las celdas */
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.detail-table th,
+.detail-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #0d0d0d;
+  color: #000; /* Establece el color del texto a negro */
+}
+
+.detail-table th {
+  background-color: #cdc1ff;
+  font-weight: bold;
+}
+
+.detail-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Estilo para el botón de la estrella (favorito) */
+.add-favorite {
+  border: none; /* Elimina cualquier borde */
+  outline: none; /* Elimina el contorno al hacer clic */
+  padding: 0px 1px;
+  box-shadow: none; /* Elimina cualquier sombra que pueda parecer borde */
+  cursor: pointer; /* Hace que el cursor sea una mano al pasar sobre el botón */
+  font-size: 30px; /* Tamaño del icono */
+  color: rgb(72, 72, 72); /* Color del icono */
+  position: absolute; /* Lo coloca de manera absoluta dentro del contenedor */
+  top: 20px; /* Alinea el botón con la parte superior del h1 */
+  right: auto; /* Lo alinea a la derecha del contenedor */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-favorite:hover {
+  color: rgb(255, 247, 0); /* Color del icono al pasar el mouse (amarillo) */
+}
+
+.add-favorite.favorito {
+  color: gold; /* Color dorado cuando el icono es favorito */
+}
+
+/* Tema oscuro para detalle-container */
+.detalle-container.dark-theme {
+  background-color: #29292e; /* Fondo oscuro */
+  color: #e4e4e4; /* Texto claro */
+}
+
+/* Estilo para el h1 en tema oscuro */
+.detalle-container.dark-theme h1 {
+  color: #e4e4e4; /* Texto claro */
+}
+
+/* Estilos para la tabla de detalles en tema oscuro */
+.detalle-container.dark-theme .detail-table {
+  background-color: #2a2a40; /* Fondo de la tabla */
+  color: #e4e4e4; /* Texto claro */
+}
+
+.detalle-container.dark-theme .detail-table th {
+  background-color: #3a3a50; /* Fondo de encabezado en tema oscuro */
+  color: #ffffff; /* Texto blanco */
+}
+
+.detalle-container.dark-theme .detail-table td {
+  background-color: #2a2a40; /* Fondo de celdas */
+  border-color: #4a4a60; /* Borde más tenue */
+}
+
+.detalle-container.dark-theme .detail-table tr:nth-child(even) {
+  background-color: #323244; /* Fondo alterno para filas */
+}
+
+/* Estilo para el botón de la estrella en tema oscuro */
+.detalle-container.dark-theme .add-favorite {
+  color: #d4d4d4; /* Color de la estrella en tema oscuro */
+}
+
+.detalle-container.dark-theme .add-favorite:hover {
+  color: #ffc107; /* Color amarillo al pasar el mouse */
+}
+
+.detalle-container.dark-theme .add-favorite.favorito {
+  color: #ffd700; /* Dorado cuando es favorito */
+}
+
+.detalle-container.dark-theme .back-button {
+  color: #d4d4d4; /* Dorado cuando es favorito */
+}
+
+/* General */
+.detalle-container {
+  border: 3px solid #ccc; /* Borde más ancho (ajusta el color según necesidad) */
+  border-radius: 15px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Opcional: sombra para destacar */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
+
+/* Tema oscuro */
+.detalle-container.dark-theme {
+  border: 3px solid #444; /* Color de borde más oscuro */
+  border-radius: 15px; /* Mantiene los bordes redondeados */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Sombra más intensa en tema oscuro */
+}

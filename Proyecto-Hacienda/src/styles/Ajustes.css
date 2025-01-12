@@ -9,6 +9,11 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
   }
+
+  body.dark-theme {
+    background-color: #242323; /* Fondo oscuro */
+    color: #ffffff; /* Texto blanco para contraste */
+  }
   
   /* Estilo del encabezado */
   .ajustes-container h2 {

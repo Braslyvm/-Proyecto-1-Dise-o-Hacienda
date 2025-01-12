@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
-import "./TipoCambioRango.css";
-import translateText from '../CuerpoElder/translate';
-import { useGlobalContext } from '../CuerpoElder/GlobalContext';
+import "../styles/TipoCambioRango.css";
+import translateText from './translate';
+import { useGlobalContext } from './GlobalContext';
 
 const TipoCambioRango = () => {
   const [activeSection, setActiveSection] = useState("rango");
@@ -11,6 +11,7 @@ const TipoCambioRango = () => {
   const [endDate, setEndDate] = useState("");
   const [specificDate, setSpecificDate] = useState("");
   const [chartData, setChartData] = useState(null);
+  const [message, setMessage] = useState("");
 
   const [translatedContent, setTranslatedContent] = useState({
     comportamientoDolar: 'Comportamiento del Tipo de Cambio del Dólar',
@@ -70,9 +71,30 @@ const TipoCambioRango = () => {
     translateContent();
   }, [translate]);
 
+  const isValidDate = (date) => {
+    const parsedDate = new Date(date);
+    return (
+      date &&
+      !isNaN(parsedDate.getTime()) &&
+      parsedDate.toISOString().split("T")[0] === date
+    );
+  };
+
   const handleFetchDataRange = async () => {
+    setMessage(""); // Limpiar mensajes anteriores
+
     if (!startDate || !endDate) {
-      alert("Por favor selecciona ambas fechas.");
+      setMessage("Por favor selecciona ambas fechas.");
+      return;
+    }
+
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+      setMessage("Por favor introduce fechas válidas.");
+      return;
+    }
+
+    if (new Date(startDate) > new Date(endDate)) {
+      setMessage("La fecha de inicio no puede ser posterior a la fecha de fin.");
       return;
     }
 
@@ -94,7 +116,7 @@ const TipoCambioRango = () => {
       const ventaValues = data.map((entry) => entry.venta);
 
       if (data.length === 0) {
-        alert("No hay datos disponibles para el rango de fechas seleccionado.");
+        setMessage("No hay datos disponibles para el rango de fechas seleccionado.");
         setChartData(null);
         return;
       }
@@ -120,13 +142,19 @@ const TipoCambioRango = () => {
       });
     } catch (error) {
       console.error("Error al obtener los datos:", error.message);
-      alert(`Hubo un error al obtener los datos: ${error.message}`);
+      setMessage("Las fechas ingresadas aun no han pasado.");
     }
   };
 
   const handleFetchDataFromDate = async () => {
+    setMessage("");
     if (!specificDate) {
-      alert("Por favor selecciona una fecha específica.");
+      setMessage("Por favor selecciona una fecha específica.");
+      return;
+    }
+
+    if (!isValidDate(specificDate) ) {
+      setMessage("Por favor introduce una fechas válida en formato YYYY-MM-DD.");
       return;
     }
 
@@ -150,7 +178,7 @@ const TipoCambioRango = () => {
       const ventaValues = data.map((entry) => entry.venta);
 
       if (data.length === 0) {
-        alert("No hay datos disponibles para el rango de fechas seleccionado.");
+        setMessage("No hay datos disponibles para el rango de fechas seleccionado.");
         setChartData(null);
         return;
       }
@@ -176,14 +204,14 @@ const TipoCambioRango = () => {
       });
     } catch (error) {
       console.error("Error al obtener los datos:", error.message);
-      alert(`Hubo un error al obtener los datos: ${error.message}`);
+      setMessage("La fecha ingresada aun no han pasado.");
     }
   };
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "1rem" }}>
       <h2>{translatedContent.comportamientoDolar}</h2>
-
+      {message && <div className="warning-message">{message}</div>} {/* Mostrar mensaje al usuario */}
       {/* Barra de navegación */}
       <div style={{ display: "flex", marginBottom: "1rem" }}>
         <button

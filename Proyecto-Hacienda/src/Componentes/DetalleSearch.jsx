@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../Logeo/Lectura";
-import "./DetalleSearch.css";
+import "../styles/DetalleSearch.css";
 import {
   setData,
   deleteByEmailAndCode,
   exists,
 } from "../Logeo/Autentificacion";
-import translateText from '../CuerpoElder/translate';
-import { useGlobalContext } from '../CuerpoElder/GlobalContext';
+import translateText from './translate';
+import { useGlobalContext } from './GlobalContext';
 
 function DetalleCabys({ changeContent }) {
   const { email } = useAuth();
@@ -30,7 +30,15 @@ function DetalleCabys({ changeContent }) {
   const [translatedDescripcion, setTranslatedDescripcion] = useState(descripcion);
   const [translatedParam3, setTranslatedParam3] = useState(param3);
 
-  const { translate } = useGlobalContext();
+  const { translate, dark } = useGlobalContext();
+
+  useEffect(() => {
+      if (dark) {
+        document.body.classList.add("dark-theme");
+      } else {
+        document.body.classList.remove("dark-theme");
+      }
+    }, [dark]); 
 
   useEffect(() => {
     const fetchValor = async () => {
@@ -84,7 +92,7 @@ function DetalleCabys({ changeContent }) {
   };
 
   return (
-    <div>
+    <div className={`detalle-container ${dark ? 'dark-theme' : 'light-theme'}`}>
       <h1>{translatedDescripcion}</h1>
       <table className="detail-table">
         <thead>
