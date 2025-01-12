@@ -14,6 +14,9 @@ function Search() {
   const [favorites, setFavorites] = useState([]);
   const [results, setResults] = useState([]);
   const [resultsEspanol, setResultsEspanol] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [dynamicCategories, setDynamicCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const { translate, dark } = useGlobalContext();
   const [searchInput, setSearchInput] = useState("");
   const [translatedContent, setTranslatedContent] = useState({
@@ -29,24 +32,6 @@ function Search() {
   const userCorreo = email;
   const navigate = useNavigate();
   const location = useLocation();
-
-  const categorias = [
-    "Productos agrícolas y alimenticios",
-    "Productos químicos",
-    "Productos textiles y prendas de vestir",
-    "Productos minerales y metales",
-    "Máquinas y aparatos",
-    "Vehículos",
-    "Productos farmacéuticos",
-    "Tecnología e informática",
-    "Instrumentos ópticos, médicos y de precisión",
-    "Muebles y artículos de decoración",
-    "Productos plásticos y caucho",
-    "Productos de papel y cartón",
-    "Productos de madera",
-    "Electrodomésticos y equipos eléctricos",
-    "Servicios relacionados (como transporte, seguros, etc.)",
-  ];
 
   useEffect(() => {
     const translateContent = async () => {
@@ -93,7 +78,7 @@ function Search() {
     };
 
     translateContent();
-  }, [translate]);
+  }, [translate, results]);
 
   useEffect(() => {
     if (location.state?.lastSearch) {
@@ -119,6 +104,11 @@ function Search() {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const extractCategories = (results) => {
+    const categories = results.map((item) => item.categorias).flat();
+    return Array.from(new Set(categories));
   };
 
   const handleSearch = async (nombreOCodigo) => {
@@ -147,6 +137,9 @@ function Search() {
 
       setResultsEspanol(data.cabys);
       setResults(data.cabys);
+      setFilteredResults(data.cabys);
+      setDynamicCategories(extractCategories(data.cabys));
+
       if (translate) {
         const translatedResults = await Promise.all(
           data.cabys.map(async (item) => {
@@ -165,6 +158,16 @@ function Search() {
     } catch (error) {
       alert("Error al realizar la solicitud.");
       console.error(error);
+    }
+  };
+
+  const handleCategoryChange = (categoria) => {
+    setSelectedCategory(categoria);
+    if (categoria === "Todas") {
+      setFilteredResults(results);
+    } else {
+      const filtered = results.filter((item) => item.categorias.includes(categoria));
+      setFilteredResults(filtered);
     }
   };
 
@@ -207,28 +210,22 @@ function Search() {
           setResults={setResults}
         />
       </div>
-  
-      <div className="busquedacat">
+
+      <div className="search-container">
         <select
-          onChange={(e) => {
-            const categoriaSeleccionada = e.target.value;
-            setSearchInput(categoriaSeleccionada); // Actualiza el valor del input
-            handleSearch(categoriaSeleccionada); // Realiza la búsqueda
-          }}
-          value={searchInput || ""} // Sincroniza el valor del dropdown con el input
+          onChange={(e) => handleCategoryChange(e.target.value)}
+          value={selectedCategory || ""}
           className="categoria-dropdown"
         >
-          <option value="" disabled selected>
-            Categorias
-          </option>
-          {categorias.map((categoria, index) => (
+          <option value="Todas">todas</option>
+          {dynamicCategories.map((categoria, index) => (
             <option key={index} value={categoria}>
               {categoria}
             </option>
           ))}
         </select>
       </div>
-  
+
       <div className="scrooll">
         <table className="table">
           <thead>
@@ -241,13 +238,14 @@ function Search() {
             </tr>
           </thead>
           <tbody>
-            {results.length > 0 ? (
-              results.map((item, index) => (
+            {filteredResults.length > 0 ? (
+              filteredResults.map((item, index) => (
                 <tr key={item.codigo}>
                   <td className="codigoDisplay">{item.codigo}</td>
                   <td className="descripcionDisplay">
                     <Link
                       to={`/DetalleCabys/${resultsEspanol[index].descripcion}/param1/${resultsEspanol[index].impuesto}/param2/${resultsEspanol[index].codigo}/param3/${resultsEspanol[index].categorias}`}
+                      state={{ lastSearch: searchInput }}
                       className="descripcion"
                     >
                       {item.descripcion || "Descripción no disponible"}
@@ -261,7 +259,7 @@ function Search() {
             ) : (
               <tr>
                 <td colSpan="3" style={{ textAlign: "center", padding: "20px" }}>
-                  Realiza una busqueda cabys
+                  Realiza una búsqueda para ver resultados
                 </td>
               </tr>
             )}
@@ -270,6 +268,6 @@ function Search() {
       </div>
     </div>
   );
-  
 }
+
 export default Search;
