@@ -79,7 +79,7 @@ function Search() {
     };
 
     translateContent();
-  }, [translate, results]);
+  }, [translate]);
 
   useEffect(() => {
     if (location.state?.lastSearch) {
@@ -241,32 +241,22 @@ function Search() {
               <th className="impuestoDisplay">{translatedContent.impuesto}</th>
             </tr>
           </thead>
-          <tbody>
-            {filteredResults.length > 0 ? (
-              filteredResults.map((item, index) => (
-                <tr key={item.codigo}>
-                  <td className="codigoDisplay">{item.codigo}</td>
-                  <td className="descripcionDisplay">
-                    <Link
-                      to={`/DetalleCabys/${resultsEspanol[index].descripcion}/param1/${resultsEspanol[index].impuesto}/param2/${resultsEspanol[index].codigo}/param3/${resultsEspanol[index].categorias}`}
-                      state={{ lastSearch: searchInput }}
-                      className="descripcion"
-                    >
-                      {item.descripcion || "Descripción no disponible"}
-                    </Link>
-                  </td>
-                  <td className="impuestoDisplay text-center">
-                    {item.impuesto}%
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3" style={{ textAlign: "center", padding: "20px" }}>
-                  Realiza una búsqueda para ver resultados
+            <tbody>
+            {results.map((item, index) => (
+              <tr key={item.codigo}>
+                <td>{item.codigo}</td>
+                <td>
+                  <Link
+                    to={`/DetalleCabys/${resultsEspanol[index].descripcion}/param1/${resultsEspanol[index].impuesto}/param2/${resultsEspanol[index].codigo}/param3/${resultsEspanol[index].categorias}`}
+                    state={{ lastSearch: searchInput }}
+                    className="descripcion"
+                  >
+                    {item.descripcion || "Descripción no disponible"}
+                  </Link>
                 </td>
+                <td className="text-center">{item.impuesto}%</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </div>
