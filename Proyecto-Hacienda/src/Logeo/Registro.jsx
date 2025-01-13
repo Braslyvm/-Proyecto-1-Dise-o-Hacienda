@@ -91,9 +91,9 @@ export default function Registro() {
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <HowToRegIcon />
       </Avatar>
-      <Typography component="h1" variant="h5">
-        {translatedContent.registroUsuario}
-      </Typography>
+      <Typography component="h1" variant="h5"   sx={{ marginRight: '5%' }}>
+        {translatedContent.iniciarSesion}
+      </Typography>
       {error && <Typography color="error" variant="body2" sx={{ mt: 2 }}>{error}</Typography>} 
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%', maxWidth: '400px' }}>
         <TextField

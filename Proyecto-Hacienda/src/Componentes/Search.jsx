@@ -15,7 +15,6 @@ function Search() {
   const [results, setResults] = useState([]);
   const [resultsEspanol, setResultsEspanol] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
-  const [categoriesTranslate, setCategoriesTranslate] = useState([]);
   const [dynamicCategories, setDynamicCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const { translate, dark } = useGlobalContext();
@@ -81,12 +80,10 @@ function Search() {
         );
 
         setResults(translatedResults);
-        setDynamicCategories(extractCategories(results));
       }
     };
-    setDynamicCategories(extractCategories(results));
     translateContent();
-  }, [translate,dynamicCategories]);
+  }, [translate]);
 
   useEffect(() => {
     if (location.state?.lastSearch) {
@@ -119,62 +116,65 @@ function Search() {
     return Array.from(new Set(categories));
   };
 
-  const handleSearch = async (nombreOCodigo) => {
-    setMessage("");
-    const esCodigo = /^\d+$/.test(nombreOCodigo);
+  // Mover la lógica de actualización de dynamicCategories a useEffect
+useEffect(() => {
+  setDynamicCategories(extractCategories(results));
+}, [results]);
+
+const handleSearch = async (nombreOCodigo) => {
+  setMessage("");
+  const esCodigo = /^\d+$/.test(nombreOCodigo);
+
+  if (translate) {
+    nombreOCodigo = await translateText(nombreOCodigo, "en", "es");
+  }
+
+  const apiUrl = esCodigo
+    ? `https://api.hacienda.go.cr/fe/cabys?codigo=${encodeURIComponent(
+        nombreOCodigo
+      )}`
+    : `https://api.hacienda.go.cr/fe/cabys?q=${encodeURIComponent(
+        nombreOCodigo
+      )}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`Error: ${response.status}`);
+
+    const data = await response.json();
+    if (!data.cabys || data.cabys.length === 0) {
+      setMessage("No se encontraron resultados.");
+      return;
+    }
+
+    setResultsEspanol(data.cabys); // Resultados en español
+    setResults(data.cabys); // Actualizamos los resultados originales
+    setFilteredResults(data.cabys); // Filtrar inicialmente por todos los resultados
 
     if (translate) {
-      nombreOCodigo = await translateText(nombreOCodigo, "en", "es");
+      const translatedResults = await Promise.all(
+        data.cabys.map(async (item) => {
+          const descripcion = await translateText(item.descripcion, "es", "en");
+          const categorias = await Promise.all(
+            item.categorias.map(async (item2) => {
+              return await translateText(item2, "es", "en");
+            })
+          );
+          const codigo = item.codigo;
+          const impuesto = item.impuesto;
+          return { ...item, descripcion, categorias, codigo, impuesto };
+        })
+      );
+      setFilteredResults(translatedResults);
+      setResults(translatedResults); // Actualizamos también los resultados traducidos
     }
-    const apiUrl = esCodigo
-      ? `https://api.hacienda.go.cr/fe/cabys?codigo=${encodeURIComponent(
-          nombreOCodigo
-        )}`
-      : `https://api.hacienda.go.cr/fe/cabys?q=${encodeURIComponent(
-          nombreOCodigo
-        )}`;
+  } catch (error) {
+    setMessage("Error al realizar la solicitud.");
+    console.error(error);
+  }
+};
 
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-      const data = await response.json();
-      if (!data.cabys || data.cabys.length === 0) {
-        setMessage("No se encontraron resultados.");
-        return;
-      }
-
-      setResultsEspanol(data.cabys);
-      setResults(data.cabys);
-      setFilteredResults(data.cabys);
-
-      if (translate) {
-        const translatedResults = await Promise.all(
-          data.cabys.map(async (item) => {
-            const descripcion = await translateText(
-              item.descripcion,
-              "es",
-              "en"
-            );
-            const categorias = await Promise.all(
-              item.categorias.map(async (item2) => {
-                return await translateText(item2, "es", "en");
-              })
-            );
-            const codigo = item.codigo;
-            const impuesto = item.impuesto;
-            return { ...item, descripcion, categorias, codigo, impuesto };
-          })
-        );
-        setFilteredResults(translatedResults);
-        setResults(translatedResults);
-      }
-      setDynamicCategories(extractCategories(results));
-    } catch (error) {
-      setMessage("Error al realizar la solicitud.");
-      console.error(error);
-    }
-  };
 
   const handleCategoryChange = (categoria) => {
     setSelectedCategory(categoria);
