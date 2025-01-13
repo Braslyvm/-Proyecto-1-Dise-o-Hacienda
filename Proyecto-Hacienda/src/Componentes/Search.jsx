@@ -15,6 +15,7 @@ function Search() {
   const [results, setResults] = useState([]);
   const [resultsEspanol, setResultsEspanol] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
+  const [categoriesTranslate, setCategoriesTranslate] = useState([]);
   const [dynamicCategories, setDynamicCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const { translate, dark } = useGlobalContext();
@@ -68,18 +69,24 @@ function Search() {
               "es",
               "en"
             );
+            const categorias = await Promise.all(
+              item.categorias.map(async (item2) => {
+                return await translateText(item2, "es", "en");
+              })
+            );
             const codigo = item.codigo;
             const impuesto = item.impuesto;
-            return { ...item, descripcion, codigo, impuesto };
+            return { ...item, descripcion, categorias, codigo, impuesto };
           })
         );
 
         setResults(translatedResults);
+        setDynamicCategories(extractCategories(results));
       }
     };
-
+    setDynamicCategories(extractCategories(results));
     translateContent();
-  }, [translate]);
+  }, [translate,dynamicCategories]);
 
   useEffect(() => {
     if (location.state?.lastSearch) {
@@ -140,7 +147,6 @@ function Search() {
       setResultsEspanol(data.cabys);
       setResults(data.cabys);
       setFilteredResults(data.cabys);
-      setDynamicCategories(extractCategories(data.cabys));
 
       if (translate) {
         const translatedResults = await Promise.all(
@@ -150,13 +156,20 @@ function Search() {
               "es",
               "en"
             );
+            const categorias = await Promise.all(
+              item.categorias.map(async (item2) => {
+                return await translateText(item2, "es", "en");
+              })
+            );
             const codigo = item.codigo;
             const impuesto = item.impuesto;
-            return { ...item, descripcion, codigo, impuesto };
+            return { ...item, descripcion, categorias, codigo, impuesto };
           })
         );
+        setFilteredResults(translatedResults);
         setResults(translatedResults);
       }
+      setDynamicCategories(extractCategories(results));
     } catch (error) {
       setMessage("Error al realizar la solicitud.");
       console.error(error);
@@ -242,7 +255,7 @@ function Search() {
             </tr>
           </thead>
             <tbody>
-            {results.map((item, index) => (
+            {filteredResults.map((item, index) => (
               <tr key={item.codigo}>
                 <td>{item.codigo}</td>
                 <td>

@@ -95,9 +95,9 @@ export default function Logeo() {
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h5"   sx={{ marginRight: '5%' }}>
         {translatedContent.iniciarSesion}
-      </Typography>
+      </Typography>
       {error && <Typography color="error" variant="body2" sx={{ mt: 2 }}>{error}</Typography>} 
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%', maxWidth: '400px' }}>
         <TextField
